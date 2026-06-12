@@ -1,0 +1,143 @@
+---
+import MetaPage from "@/components/MetaPage.astro"
+import Layout from "@/layouts/Layout.astro"
+import { getPosts } from "@/lib/content"
+
+const posts = (await getPosts()).slice(0, 5)
+const fmtMonth = (d: Date) =>
+  `${d.getFullYear()}·${String(d.getMonth() + 1).padStart(2, "0")}`
+---
+
+<Layout>
+  <MetaPage slot="head" />
+  <dictionary-entry>
+    <h1>压舱石</h1>
+    <etymology-span>
+      <ipa-span>yā cāng shí</ipa-span>
+      名词 [船舶术语:置于船底的重物,用以压低重心、稳定船身,使其在风浪中不致倾覆]
+    </etymology-span>
+    <ol>
+      <li>
+        航行中维持船身稳定的配重。船可以空载,但不可没有压舱之物——空船最容易翻。
+      </li>
+      <li>引申:在不确定之中,提供确定性的事物。本站取此义。</li>
+    </ol>
+    <hr>
+    <prose-content>
+      <p>
+        这里记录一些数据驱动的判断。我做的事情只有一件:寻找那些数据已经悄悄转向、而共识还停留在旧范式里的边界,把判断写下来,留给时间检验。
+      </p>
+      <p>
+        判断可能对,也可能错。但每一个都有数据留痕、有时间戳,敢被回头清算。
+      </p>
+    </prose-content>
+  </dictionary-entry>
+  <home-writing>
+    <h2>「文章」</h2>
+    <ul>
+      {posts.map((post) => (
+          <li>
+            <span class="post-month">{fmtMonth(post.data.date)},</span>
+            <a href={`/blog/${post.id}`}>{post.data.title}</a>
+          </li>
+        ))}
+    </ul>
+    <p class="all-posts"><a href="/blog">全部文章 →</a></p>
+  </home-writing>
+</Layout>
+
+<style>
+  home-writing {
+    display: block;
+    margin-block-start: var(--space-l);
+
+    h2 {
+      font-size: var(--step-1);
+      font-weight: var(--font-weight-medium);
+      margin-block-end: var(--space-xs);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-block-end: var(--space-2xs);
+        font-size: var(--step-0);
+
+        .post-month {
+          color: var(--muted-foreground);
+          font-size: var(--step--1);
+          margin-inline-end: 0.35em;
+        }
+      }
+    }
+
+    .all-posts {
+      margin-block-start: var(--space-s);
+      font-size: var(--step--1);
+
+      a {
+        color: var(--muted-foreground);
+
+        &:hover {
+          color: var(--accent);
+        }
+      }
+    }
+  }
+
+  dictionary-entry {
+    display: block;
+    font-size: var(--step-0);
+    color: var(--muted-foreground);
+
+    @media (width >= 64rem) {
+      margin-block-start: -0.2em;
+    }
+
+    ipa-span {
+      opacity: 0.6;
+    }
+
+    h1 {
+      font-size: var(--step-2);
+      line-height: calc(var(--leading-offset) + 1em);
+      font-weight: var(--font-weight-medium);
+      color: var(--foreground);
+      margin-block-end: var(--space-2xs);
+    }
+
+    ol {
+      margin-block-start: var(--space-xs);
+      list-style: none;
+
+      li {
+        padding-inline-start: 1em;
+        text-indent: -1em;
+
+        &::before {
+          content: counter(list-item);
+          display: inline-block;
+          inline-size: 1em;
+          text-indent: 0;
+          font-weight: var(--font-weight-medium);
+        }
+
+        + li {
+          margin-block-start: var(--space-3xs);
+        }
+      }
+    }
+
+    hr {
+      margin-block: var(--space-m);
+      border-block-start: 2px solid var(--border);
+    }
+
+    prose-content {
+      margin-block-start: var(--space-xs);
+    }
+  }
+</style>

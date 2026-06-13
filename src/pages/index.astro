@@ -10,28 +10,10 @@ const fmtMonth = (d: Date) =>
 
 <Layout>
   <MetaPage slot="head" />
-  <dictionary-entry>
+  <home-hero>
     <h1>枢机</h1>
-    <etymology-span>
-      <ipa-span>shū jī</ipa-span>
-      名词 [枢:门轴,门所绕之转动而自身不动的点;机:机括,装置将动未动时,最早的那一丝动静]
-    </etymology-span>
-    <ol>
-      <li>
-        门轴与机括。一扇门上最不起眼、却唯一不能坏的零件;一台装置里,决定何时动、往哪动的小机关。
-      </li>
-      <li>引申:关键所在——事物开始转动的地方。本站取此义。</li>
-    </ol>
-    <hr>
-    <prose-content>
-      <p>
-        这里记录一些数据驱动的判断。我做的事情只有一件:寻找那些数据已经悄悄转向、而共识还停留在旧范式里的边界,把判断写下来,留给时间检验。
-      </p>
-      <p>
-        判断可能对,也可能错。但每一个都有数据留痕、有时间戳,敢被回头清算。
-      </p>
-    </prose-content>
-  </dictionary-entry>
+    <p>在不确定的世界里,留下一些确定的判断。</p>
+  </home-hero>
   <home-writing>
     <h2>「文章」</h2>
     <ul>
@@ -88,56 +70,26 @@ const fmtMonth = (d: Date) =>
     }
   }
 
-  dictionary-entry {
+  home-hero {
     display: block;
-    font-size: var(--step-0);
-    color: var(--muted-foreground);
 
     @media (width >= 64rem) {
       margin-block-start: -0.2em;
     }
 
-    ipa-span {
-      opacity: 0.6;
-    }
-
     h1 {
-      font-size: var(--step-2);
+      font-size: var(--step-3);
       line-height: calc(var(--leading-offset) + 1em);
       font-weight: var(--font-weight-medium);
+      letter-spacing: 0.06em;
       color: var(--foreground);
       margin-block-end: var(--space-2xs);
     }
 
-    ol {
-      margin-block-start: var(--space-xs);
-      list-style: none;
-
-      li {
-        padding-inline-start: 1em;
-        text-indent: -1em;
-
-        &::before {
-          content: counter(list-item);
-          display: inline-block;
-          inline-size: 1em;
-          text-indent: 0;
-          font-weight: var(--font-weight-medium);
-        }
-
-        + li {
-          margin-block-start: var(--space-3xs);
-        }
-      }
-    }
-
-    hr {
-      margin-block: var(--space-m);
-      border-block-start: 2px solid var(--border);
-    }
-
-    prose-content {
-      margin-block-start: var(--space-xs);
+    p {
+      font-size: var(--step-0);
+      color: var(--muted-foreground);
+      margin: 0;
     }
   }
 </style>

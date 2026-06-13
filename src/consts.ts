@@ -2,9 +2,10 @@ import type { SvgComponent } from "astro/types"
 import RSS from "@/assets/icons/rss.svg"
 
 export const SITE = {
-  title: "「枢机」",
-  description: "在不确定的世界里,留下一些确定的判断。",
-  locale: "zh-CN",
+  title: "The Seam",
+  description:
+    "Data-driven, contrarian essays — finding where the data has already turned and consensus hasn't caught up.",
+  locale: "en-US",
   dir: "ltr",
   defaultPageImage: "/static/opengraph-image.png",
   defaultPostImage: "/static/1200x630.png",

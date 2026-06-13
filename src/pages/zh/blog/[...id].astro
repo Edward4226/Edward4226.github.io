@@ -3,7 +3,7 @@ import PostPage from "@/components/PostPage.astro"
 import { getPosts, postSlug } from "@/lib/content"
 
 export async function getStaticPaths() {
-  const posts = await getPosts("en")
+  const posts = await getPosts("zh")
   return posts.map((post, i) => ({
     params: { id: postSlug(post) },
     props: { post, prev: posts[i + 1], next: posts[i - 1] },

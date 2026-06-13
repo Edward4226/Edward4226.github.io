@@ -18,13 +18,15 @@ import Footer from "@/components/Footer.astro"
 import MetaHead from "@/components/MetaHead.astro"
 import Sidebar from "@/components/Sidebar.astro"
 import { SITE } from "@/consts"
+import { getLang, ui } from "@/i18n"
 
 type Props = { crumbs?: { label: string; href: string }[] }
 
 const { crumbs } = Astro.props
+const lang = getLang(Astro.url)
 ---
 
-<html lang={SITE.locale} dir={SITE.dir}>
+<html lang={ui[lang].locale} dir={SITE.dir}>
   <MetaHead>
     <slot name="head" />
   </MetaHead>

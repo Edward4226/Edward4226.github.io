@@ -33,6 +33,8 @@ const blog = defineCollection({
       image: image().optional(),
       draft: z.boolean().optional(),
       dataAsOf: z.string().optional(),
+      lang: z.enum(["en", "zh"]).default("en"),
+      urlSlug: z.string().optional(),
     }),
 })
 

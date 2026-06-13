@@ -13,14 +13,12 @@ import { headingNamespace } from "./src/lib/heading-namespace"
 export default defineConfig({
   site: "https://edward4226.github.io",
   prefetch: { prefetchAll: true },
-  integrations: [
-    sitemap({
-      filter: (page) =>
-        !/\/blog\/[^/]+\/[^/]+\/?$/.test(page) &&
-        !/\/authors\/[^/]+\/?$/.test(page) &&
-        !page.includes("/tags/"),
-    }),
-  ],
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "zh"],
+    routing: { prefixDefaultLocale: false },
+  },
+  integrations: [sitemap()],
   markdown: {
     syntaxHighlight: false,
     processor: satteri({

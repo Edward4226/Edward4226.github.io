@@ -1,6 +1,7 @@
 ---
 import { SITE } from "@/consts"
 import { pageTitle } from "@/lib/content"
+import { getLang, ui } from "@/i18n"
 
 type Props = {
   title?: string
@@ -8,11 +9,13 @@ type Props = {
   noindex?: boolean
 }
 
-const { title, description = SITE.description, noindex = false } = Astro.props
+const lang = getLang(Astro.url)
+const tr = ui[lang]
+const { title, description = tr.description, noindex = false } = Astro.props
 
 const base = Astro.site ?? new URL(Astro.url.origin)
-const ogTitle = title ?? SITE.title
-const fullTitle = title ? pageTitle(title) : SITE.title
+const ogTitle = title ?? tr.siteName
+const fullTitle = title ? pageTitle(title, lang) : tr.siteName
 const canonical = new URL(Astro.url.pathname, base)
 const ogImage = new URL(SITE.defaultPageImage, base)
 ---
@@ -26,8 +29,8 @@ const ogImage = new URL(SITE.defaultPageImage, base)
 <meta property="og:description" content={description}>
 <meta property="og:url" content={canonical}>
 <meta property="og:type" content="website">
-<meta property="og:site_name" content={SITE.title}>
-<meta property="og:locale" content={SITE.locale.replace("-", "_")}>
+<meta property="og:site_name" content={tr.siteName}>
+<meta property="og:locale" content={tr.ogLocale}>
 <meta property="og:image" content={ogImage}>
 <meta property="og:image:alt" content={ogTitle}>
 

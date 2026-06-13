@@ -1,13 +1,16 @@
 ---
 import Logo from "@/assets/logo.svg"
 import ThemeToggle from "@/components/ThemeToggle.astro"
-import { NAVIGATION, SITE } from "@/consts"
 import { normalizePath } from "@/lib/utils"
+import { getLang, ui, homeHref, blogHref, switchHref } from "@/i18n"
 
 type Props = { crumbs?: { label: string; href: string }[] }
 
 const { crumbs = [] } = Astro.props
+const lang = getLang(Astro.url)
+const tr = ui[lang]
 const pathname = normalizePath(Astro.url.pathname) || "/"
+const NAVIGATION = [{ href: blogHref(lang), label: tr.writing }]
 const section = NAVIGATION.find(
   ({ href }) => pathname === href || pathname.startsWith(`${href}/`),
 )
@@ -15,9 +18,9 @@ const section = NAVIGATION.find(
 
 <aside>
   <sidebar-inner>
-    <a href="/" aria-label={SITE.title}>
+    <a href={homeHref(lang)} aria-label={tr.siteName}>
       <Logo />
-      <span>{SITE.title}</span>
+      <span>{tr.siteName}</span>
     </a>
     <nav>
       <ul>
@@ -63,6 +66,7 @@ const section = NAVIGATION.find(
   </sidebar-inner>
   <sidebar-toggle>
     <ThemeToggle />
+    <a class="lang-switch" href={switchHref(Astro.url)} aria-label="switch language">{tr.switchLabel}</a>
     <slot name="actions" />
   </sidebar-toggle>
 </aside>
@@ -171,6 +175,16 @@ const section = NAVIGATION.find(
 
   nav li:has(> ul) > a {
     @media (width < 64rem) {
+      color: var(--foreground);
+    }
+  }
+
+  .lang-switch {
+    font-size: var(--step--1);
+    color: var(--muted-foreground);
+    padding-inline: 0.4rem;
+
+    &:hover {
       color: var(--foreground);
     }
   }

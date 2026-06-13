@@ -1,12 +1,16 @@
 ---
 import MetaPage from "@/components/MetaPage.astro"
 import Layout from "@/layouts/Layout.astro"
+import { getLang, ui, homeHref } from "@/i18n"
+const lang = getLang(Astro.url)
+const tr = ui[lang]
 ---
 
-<Layout crumbs={[{ label: "404", href: "/404" }]}>
-  <MetaPage slot="head" title="404" />
+<Layout>
+  <MetaPage slot="head" title="404" noindex />
   <prose-content>
     <h1>404</h1>
-    <p>This page does not exist.</p>
+    <p>{tr.notFound}</p>
+    <p><a href={homeHref(lang)}>{tr.backHome}</a></p>
   </prose-content>
 </Layout>

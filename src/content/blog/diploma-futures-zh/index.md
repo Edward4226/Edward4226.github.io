@@ -6,6 +6,8 @@ tags:
   - 教育
   - AI
   - 范式转移
+lang: zh
+urlSlug: diploma-futures
 dataAsOf: "2026-05"
 authors:
   - edward

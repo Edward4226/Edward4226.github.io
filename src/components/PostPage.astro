@@ -1,0 +1,180 @@
+---
+import MetaPost from "@/components/MetaPost.astro"
+import PostActions from "@/components/PostActions.astro"
+import ScrollToTop from "@/components/ScrollToTop.astro"
+import TableOfContents from "@/components/TableOfContents.astro"
+import Layout from "@/layouts/Layout.astro"
+import { pageTitle, postSlug } from "@/lib/content"
+import { formatDate } from "@/lib/utils"
+import { type Lang, ui, blogHref, postHref } from "@/i18n"
+import { Image } from "astro:assets"
+import { getEntries, render, type CollectionEntry } from "astro:content"
+
+type Props = {
+  post: CollectionEntry<"blog">
+  prev?: CollectionEntry<"blog">
+  next?: CollectionEntry<"blog">
+}
+
+const { post, prev, next } = Astro.props
+const lang = (post.data.lang ?? "en") as Lang
+const tr = ui[lang]
+
+const { Content, headings } = await render(post)
+const authors = await getEntries(post.data.authors)
+
+const tocHeadings = headings.filter(
+  ({ depth, text }) => depth >= 2 && depth <= 4 && text.trim(),
+)
+const sections = [
+  { id: undefined, label: post.data.title, open: true, headings: tocHeadings },
+]
+const hasToc = tocHeadings.length > 0
+
+const slug = postSlug(post)
+const body = post.body ?? ""
+const minutes =
+  lang === "zh"
+    ? Math.max(1, Math.round(body.length / 400))
+    : Math.max(1, Math.round(body.trim().split(/\s+/).length / 220))
+const authorNames = authors.map((a) => a.data.name).join(", ")
+const citation =
+  lang === "zh"
+    ? `${authorNames},《${post.data.title}》,${tr.citeSource},${formatDate(post.data.date)}`
+    : `${authorNames}, "${post.data.title}," ${tr.citeSource}, ${formatDate(post.data.date)}`
+
+const crumbs = [{ label: post.data.title, href: postHref(lang, slug) }]
+---
+
+<Layout crumbs={crumbs}>
+  <MetaPost slot="head" post={post} />
+  {hasToc && (
+      <TableOfContents slot="toc" title={post.data.title} sections={sections} />
+    )}
+  <PostActions slot="actions" prev={prev} next={next} />
+  <ScrollToTop floating />
+  <article data-url={postHref(lang, slug)} data-title={pageTitle(post.data.title, lang)}>
+    <header>
+      <h1>{post.data.title}</h1>
+      <post-meta>
+        {authorNames && <post-authors>{authorNames}</post-authors>}
+        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+        <reading-time>{tr.minRead(minutes)}</reading-time>
+        {post.data.tags && (
+          <post-tags>
+            {post.data.tags.map((tag) => (
+              <span>#{tag}</span>
+            ))}
+          </post-tags>
+        )}
+        {post.data.dataAsOf && <data-asof>{tr.dataAsOf(post.data.dataAsOf)}</data-asof>}
+        <button class="cite-btn" data-cite={citation} data-done={tr.cited}>{tr.cite}</button>
+      </post-meta>
+      <p>{post.data.description}</p>
+    </header>
+    {post.data.image && (
+      <post-banner>
+        <Image src={post.data.image} alt={post.data.title} width={1200} height={630} priority />
+      </post-banner>
+    )}
+    <prose-content>
+      <Content />
+    </prose-content>
+  </article>
+</Layout>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>(".cite-btn").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const cite = `${btn.dataset.cite}. ${location.origin}${location.pathname}`
+      const done = btn.dataset.done ?? "Copied"
+      try {
+        await navigator.clipboard.writeText(cite)
+        const original = btn.textContent
+        btn.textContent = done
+        setTimeout(() => {
+          btn.textContent = original
+        }, 1600)
+      } catch {
+        prompt(cite, cite)
+      }
+    })
+  })
+</script>
+
+<style>
+  header {
+    margin-block-end: var(--space-m);
+
+    h1 {
+      font-size: var(--step-3);
+      line-height: calc(var(--leading-offset) + 1em);
+      font-weight: var(--font-weight-medium);
+    }
+
+    post-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-3xs);
+      margin-block-start: var(--space-3xs);
+      font-size: var(--step--1);
+      color: var(--muted-foreground);
+
+      post-authors ~ time::before,
+      time ~ reading-time::before,
+      reading-time ~ post-tags::before,
+      post-tags ~ data-asof::before,
+      reading-time ~ data-asof::before,
+      data-asof ~ .cite-btn::before,
+      post-tags ~ .cite-btn::before,
+      reading-time ~ .cite-btn::before {
+        content: "·";
+        margin-inline-end: var(--space-3xs);
+      }
+
+      post-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-3xs);
+        color: color-mix(in oklab, var(--muted-foreground) 60%, transparent);
+      }
+
+      .cite-btn {
+        font: inherit;
+        color: var(--muted-foreground);
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        text-decoration: underline;
+        text-decoration-color: color-mix(
+          in oklab,
+          var(--muted-foreground) 40%,
+          transparent
+        );
+        text-underline-offset: 0.15em;
+
+        &:hover {
+          color: var(--accent);
+        }
+      }
+    }
+
+    > p {
+      margin-block-start: var(--space-2xs);
+      font-size: var(--step--1);
+      color: var(--muted-foreground);
+    }
+  }
+
+  post-banner {
+    display: block;
+    margin-block-end: var(--space-m);
+
+    :global(img) {
+      inline-size: 100%;
+      block-size: auto;
+    }
+  }
+</style>

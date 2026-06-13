@@ -1,12 +1,15 @@
 ---
 import SocialIcons from "@/components/SocialIcons.astro"
-import { SITE, SOCIALS } from "@/consts"
+import { SOCIALS } from "@/consts"
+import { getLang, ui } from "@/i18n"
+
+const tr = ui[getLang(Astro.url)]
 ---
 
 <footer>
   <p>
     &copy; {new Date().getFullYear()}
-    {SITE.title}
+    {tr.siteName}
   </p>
   <SocialIcons links={SOCIALS} />
 </footer>

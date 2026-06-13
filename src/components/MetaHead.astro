@@ -1,7 +1,11 @@
 ---
 import sansWoff2 from "@/assets/fonts/IBMPlexSans-VariableFont_wdth,wght.woff2?url"
 import sansItalicWoff2 from "@/assets/fonts/IBMPlexSans-Italic-VariableFont_wdth,wght.woff2?url"
-import { SITE } from "@/consts"
+import { getLang, ui, switchHref } from "@/i18n"
+
+const lang = getLang(Astro.url)
+const tr = ui[lang]
+const altHref = switchHref(Astro.url)
 ---
 
 <head>
@@ -16,7 +20,7 @@ import { SITE } from "@/consts"
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content={SITE.title}>
+  <meta name="apple-mobile-web-app-title" content={tr.siteName}>
   <meta
     name="format-detection"
     content="telephone=no,date=no,address=no,email=no,url=no"
@@ -43,9 +47,11 @@ import { SITE } from "@/consts"
   <link
     rel="alternate"
     type="application/rss+xml"
-    title={SITE.title}
-    href={new URL("rss.xml", Astro.site)}
+    title={tr.siteName}
+    href={new URL(lang === "zh" ? "zh/rss.xml" : "rss.xml", Astro.site)}
   >
+  <link rel="alternate" hreflang={lang} href={new URL(Astro.url.pathname, Astro.site)}>
+  <link rel="alternate" hreflang={lang === "zh" ? "en" : "zh"} href={new URL(altHref, Astro.site)}>
 
   <link rel="preload" href={sansWoff2} as="font" type="font/woff2" crossorigin>
   <link

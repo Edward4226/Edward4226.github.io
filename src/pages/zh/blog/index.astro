@@ -5,13 +5,13 @@ import Layout from "@/layouts/Layout.astro"
 import { getPosts } from "@/lib/content"
 import { ui } from "@/i18n"
 
-const posts = await getPosts("en")
+const posts = await getPosts("zh")
 ---
 
 <Layout>
-  <MetaPage slot="head" title={ui.en.writing} />
+  <MetaPage slot="head" title={ui.zh.writing} />
   <ul>
-    {posts.map((post) => <BlogCard post={post} lang="en" />)}
+    {posts.map((post) => <BlogCard post={post} lang="zh" />)}
   </ul>
 </Layout>
 

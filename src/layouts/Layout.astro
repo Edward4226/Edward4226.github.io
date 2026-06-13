@@ -45,50 +45,6 @@ const { crumbs } = Astro.props
         <page-footer><Footer /></page-footer>
       </page-content>
     </page-grid>
-    <paper-switcher title="浅色纸样试穿">
-      <span>纸样(浅色)</span>
-      <button data-v="A">A 米白</button>
-      <button data-v="B">B 年鉴</button>
-      <button data-v="C">C 玫瑰</button>
-      <button data-v="D">D 石灰</button>
-    </paper-switcher>
-    <script is:inline>
-      document.documentElement.dataset.paper = localStorage.paperVariant || "B"
-      document.querySelectorAll("paper-switcher button").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          localStorage.theme = "light"
-          document.documentElement.dataset.theme = "light"
-          localStorage.paperVariant = btn.dataset.v
-          document.documentElement.dataset.paper = btn.dataset.v
-        })
-      })
-    </script>
-    <style is:global>
-      paper-switcher {
-        position: fixed;
-        right: 1rem;
-        bottom: 1rem;
-        z-index: 50;
-        display: flex;
-        gap: 0.4rem;
-        align-items: center;
-        padding: 0.4rem 0.6rem;
-        font-size: 0.75rem;
-        color: var(--muted-foreground);
-        background: var(--background);
-        border: 1px solid var(--border);
-        border-radius: 0.5rem;
-
-        button {
-          padding: 0.15rem 0.45rem;
-          border: 1px solid var(--border);
-          border-radius: 0.35rem;
-          cursor: pointer;
-          color: var(--foreground);
-          background: var(--muted);
-        }
-      }
-    </style>
   </body>
 </html>
 

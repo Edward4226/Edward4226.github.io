@@ -38,37 +38,6 @@
   color-scheme: light dark;
 }
 
-/* temporary paper variant switcher (light mode) */
-:root[data-paper="A"] {
-  --paper-bg:       oklch(98.8% 0.016 102);
-  --paper-ink:      oklch(22% 0.006 80);
-  --paper-strong:   oklch(20% 0.006 80);
-  --paper-surface:  oklch(94.5% 0.015 100);
-  --paper-muted-fg: oklch(51% 0.008 95);
-  --paper-border:   oklch(90% 0.013 100);
-  --paper-ring:     oklch(70% 0.01 100);
-}
-
-:root[data-paper="C"] {
-  --paper-bg:       oklch(96.5% 0.02 70);
-  --paper-ink:      oklch(24% 0.012 50);
-  --paper-strong:   oklch(21% 0.012 50);
-  --paper-surface:  oklch(92.5% 0.02 70);
-  --paper-muted-fg: oklch(50% 0.018 60);
-  --paper-border:   oklch(88% 0.02 70);
-  --paper-ring:     oklch(68% 0.018 65);
-}
-
-:root[data-paper="D"] {
-  --paper-bg:       oklch(90% 0.009 85);
-  --paper-ink:      oklch(24% 0.008 80);
-  --paper-strong:   oklch(21% 0.008 80);
-  --paper-surface:  oklch(86% 0.01 85);
-  --paper-muted-fg: oklch(46% 0.01 80);
-  --paper-border:   oklch(81% 0.01 85);
-  --paper-ring:     oklch(62% 0.01 85);
-}
-
 *,
 ::before,
 ::after,

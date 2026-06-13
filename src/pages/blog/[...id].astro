@@ -103,6 +103,9 @@ if (isSubpost(post.id)) {
             <time datetime={entry.data.date.toISOString()}
               >{formatDate(entry.data.date)}</time
             >
+            <reading-time
+              >约 {Math.max(1, Math.round((entry.body?.length ?? 0) / 400))} 分钟</reading-time
+            >
             {entry.data.tags && (
               <post-tags>
                 {entry.data.tags.map((tag) => (
@@ -116,7 +119,7 @@ if (isSubpost(post.id)) {
             {i === 0 && (
               <button
                 class="cite-btn"
-                data-cite={`${authors.map((a) => a.data.name).join(", ")},《${entry.data.title}》,压舱石,${formatDate(entry.data.date)}`}
+                data-cite={`${authors.map((a) => a.data.name).join(", ")},《${entry.data.title}》,枢机,${formatDate(entry.data.date)}`}
                 >引用本文</button
               >
             )}
@@ -233,8 +236,14 @@ if (isSubpost(post.id)) {
         }
       }
 
-      time ~ post-tags::before {
+      time ~ post-tags::before,
+      reading-time ~ post-tags::before {
         content: "·";
+      }
+
+      time ~ reading-time::before {
+        content: "·";
+        margin-inline-end: var(--space-3xs);
       }
 
       post-tags ~ data-asof::before,

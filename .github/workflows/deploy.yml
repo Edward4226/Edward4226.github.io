@@ -37,3 +37,15 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  notify:
+    needs: deploy
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: IndexNow ping (Bing/Yandex fast indexing)
+        run: |
+          curl -s "https://api.indexnow.org/indexnow?url=https://edward4226.github.io/&key=f3a8c1d92b7e4065a4cb98d12ef60371" || true
+      - name: Wayback Machine archive
+        run: |
+          curl -s -m 90 "https://web.archive.org/save/https://edward4226.github.io/" -o /dev/null || true

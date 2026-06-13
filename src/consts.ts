@@ -2,9 +2,8 @@ import type { SvgComponent } from "astro/types"
 import RSS from "@/assets/icons/rss.svg"
 
 export const SITE = {
-  title: "「压舱石」",
-  description:
-    "一个数据驱动的个人博客:寻找那些数据已经转向、共识尚未跟上的边界,把判断写下来,留给时间检验。",
+  title: "「枢机」",
+  description: "在不确定的世界里,留下一些确定的判断。",
   locale: "zh-CN",
   dir: "ltr",
   defaultPageImage: "/static/opengraph-image.png",

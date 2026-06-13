@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <rect width="100" height="100" rx="18" fill="#100F0F"/>
-  <text x="50" y="54" text-anchor="middle" dominant-baseline="central" font-family="Songti SC, Noto Serif SC, serif" font-size="62" font-weight="500" fill="#E8E0D2">压</text>
+  <text x="50" y="54" text-anchor="middle" dominant-baseline="central" font-family="Songti SC, Noto Serif SC, serif" font-size="62" font-weight="500" fill="#E8E0D2">枢</text>
   <rect x="22" y="78" width="56" height="5" rx="2.5" fill="#C89B7B"/>
 </svg>

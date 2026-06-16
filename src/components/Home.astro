@@ -13,6 +13,7 @@ const fmtMonth = (d: Date) =>
 <home-hero>
   <h1>{tr.siteName}</h1>
   <p>{tr.tagline}</p>
+  <p class="stance">{tr.homeStance}</p>
 </home-hero>
 <home-writing>
   <h2>{tr.writing}</h2>
@@ -48,6 +49,12 @@ const fmtMonth = (d: Date) =>
       font-size: var(--step-0);
       color: var(--muted-foreground);
       margin: 0;
+    }
+
+    p.stance {
+      margin-block-start: var(--space-2xs);
+      font-size: var(--step--1);
+      color: color-mix(in oklab, var(--muted-foreground) 75%, transparent);
     }
   }
 

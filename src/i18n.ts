@@ -21,6 +21,7 @@ export const ui = {
     citeSource: "The Seam",
     switchLabel: "中文",
     about: "About",
+    homeStance: "No fence-sitting. I post only once I've thought it through — then I say it flat out.",
   },
   zh: {
     siteName: "枢机",
@@ -39,6 +40,7 @@ export const ui = {
     citeSource: "枢机",
     switchLabel: "EN",
     about: "关于",
+    homeStance: "不打太极,不骑墙。想清楚了才发,发了就说死。",
   },
 } as const
 

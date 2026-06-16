@@ -43,9 +43,14 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
-      - name: IndexNow ping (Bing/Yandex fast indexing)
+      - name: IndexNow ping all pages (Bing/Yandex fast indexing)
         run: |
-          curl -s "https://api.indexnow.org/indexnow?url=https://edward4226.github.io/&key=f3a8c1d92b7e4065a4cb98d12ef60371" || true
-      - name: Wayback Machine archive
+          sleep 20
+          urls=$(curl -s https://edward4226.github.io/sitemap-0.xml \
+            | grep -oE 'https://edward4226.github.io/[^<]*' || true)
+          for u in $urls; do
+            curl -s "https://api.indexnow.org/indexnow?url=${u}&key=f3a8c1d92b7e4065a4cb98d12ef60371" -o /dev/null || true
+          done
+      - name: Wayback Machine archive (homepage)
         run: |
           curl -s -m 90 "https://web.archive.org/save/https://edward4226.github.io/" -o /dev/null || true

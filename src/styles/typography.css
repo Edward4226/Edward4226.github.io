@@ -85,3 +85,9 @@ prose-content {
     color: var(--prose-foreground);
   }
 }
+
+/* dark mode: dim images so they don't glare on the warm-black page */
+:root[data-theme="dark"] prose-content :is(img, video),
+:root[data-theme="dark"] post-banner :is(img, video) {
+  filter: brightness(0.85) contrast(1.05);
+}

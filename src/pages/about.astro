@@ -1,0 +1,11 @@
+---
+import About from "@/components/About.astro"
+import MetaPage from "@/components/MetaPage.astro"
+import Layout from "@/layouts/Layout.astro"
+import { ui } from "@/i18n"
+---
+
+<Layout>
+  <MetaPage slot="head" title={ui.en.about} />
+  <About lang="en" />
+</Layout>

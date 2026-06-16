@@ -20,6 +20,7 @@ export const ui = {
     cited: "Copied",
     citeSource: "The Seam",
     switchLabel: "中文",
+    about: "About",
   },
   zh: {
     siteName: "枢机",
@@ -37,6 +38,7 @@ export const ui = {
     cited: "已复制",
     citeSource: "枢机",
     switchLabel: "EN",
+    about: "关于",
   },
 } as const
 
@@ -58,6 +60,10 @@ export function blogHref(lang: Lang) {
 
 export function postHref(lang: Lang, slug: string) {
   return lang === "zh" ? `/zh/blog/${slug}` : `/blog/${slug}`
+}
+
+export function aboutHref(lang: Lang) {
+  return lang === "zh" ? "/zh/about" : "/about"
 }
 
 // Toggle to the other language, preserving the current section/slug.

@@ -1,0 +1,50 @@
+---
+import { type Lang } from "@/i18n"
+
+type Props = { lang: Lang }
+const { lang } = Astro.props
+---
+
+<prose-content>
+  {lang === "zh" ? (
+    <>
+      <h1>关于</h1>
+      <p>「枢机」是一个人写的博客。</p>
+      <p>
+        这里只做一件事:在各个领域里,找那些数据已经悄悄转向、而共识还停在原地的地方,把判断写下来,留给时间检验。
+      </p>
+      <p>
+        我不写四平八稳的综述。每一篇都会给一个明确、甚至可能让你不舒服的结论——但结论背后是数据和机制,不是情绪。有的判断以后会被证明是对的,有的会错;但每一篇都有数据留痕、有时间戳,认账。
+      </p>
+      <p>
+        如果你也习惯对着主流叙事多问一句"数据真是这么说的吗",那我们大概聊得来。
+      </p>
+      <p>订阅 <a href="/zh/rss.xml">RSS</a>,或切换到 <a href="/about">English</a>。</p>
+    </>
+  ) : (
+    <>
+      <h1>About</h1>
+      <p>The Seam is a blog written by one person.</p>
+      <p>
+        It does one thing: across different fields, it looks for the places
+        where the data has already quietly turned while consensus is still
+        standing where it was — and sets the judgment down, to be checked
+        against time.
+      </p>
+      <p>
+        I don't write tidy, hedge-everything surveys. Every piece lands a
+        clear, sometimes uncomfortable conclusion — but the conclusion rests on
+        data and mechanism, not mood. Some calls will prove right, some wrong;
+        either way each one leaves a data trail and a timestamp, on the record.
+      </p>
+      <p>
+        If you also tend to ask, of any mainstream story, "is that really what
+        the data says?" — we'll probably get along.
+      </p>
+      <p>
+        Subscribe via <a href="/rss.xml">RSS</a>, or read in
+        <a href="/zh/about"> 中文</a>.
+      </p>
+    </>
+  )}
+</prose-content>

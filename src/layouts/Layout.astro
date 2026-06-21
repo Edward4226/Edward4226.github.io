@@ -31,6 +31,7 @@ const lang = getLang(Astro.url)
     <slot name="head" />
   </MetaHead>
   <body>
+    <scroll-progress aria-hidden="true"></scroll-progress>
     <page-grid>
       <page-header>
         <page-nav>
@@ -51,6 +52,29 @@ const lang = getLang(Astro.url)
 </html>
 
 <style>
+  scroll-progress {
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline: 0;
+    block-size: 2px;
+    z-index: 50;
+    background: var(--accent);
+    transform-origin: 0 50%;
+    scale: 0 1;
+    animation: scroll-progress-grow linear;
+    animation-timeline: scroll(root block);
+
+    @media (width < 64rem) {
+      display: none;
+    }
+  }
+
+  @keyframes scroll-progress-grow {
+    to {
+      scale: 1 1;
+    }
+  }
+
   page-grid {
     position: relative;
     isolation: isolate;

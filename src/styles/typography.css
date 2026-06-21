@@ -56,6 +56,7 @@ prose-content {
   color: var(--foreground);
   text-wrap: pretty;
   overflow-wrap: break-word;
+  hanging-punctuation: first last;
 
   :where(
       p,

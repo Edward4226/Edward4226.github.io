@@ -217,10 +217,16 @@ const { title, sections } = Astro.props
 
     a {
       color: var(--muted-foreground);
+      border-inline-start: 2px solid transparent;
+      padding-inline-start: 0.6em;
 
       &:hover,
       &[data-active] {
         color: var(--foreground);
+      }
+
+      &[data-active] {
+        border-inline-start-color: var(--accent);
       }
     }
 

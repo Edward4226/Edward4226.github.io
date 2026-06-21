@@ -73,7 +73,7 @@ const altHref = switchHref(Astro.url)
     const theme = localStorage.theme
     if (theme === "light" || theme === "dark")
       document.documentElement.dataset.theme = theme
-    else document.documentElement.dataset.theme = "dark"
+    else document.documentElement.dataset.theme = "light"
   </script>
 
   <slot />

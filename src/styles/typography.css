@@ -12,8 +12,8 @@
   --tracking-tight: 0em;
   --leading-offset: 0.65rem;
 
-  --prose-foreground: color-mix(in oklab, var(--foreground) 80%, transparent);
-  --prose-marker:     color-mix(in oklab, var(--foreground) 30%, transparent);
+  --prose-foreground: color-mix(in oklab, var(--foreground) 90%, transparent);
+  --prose-marker:     color-mix(in oklab, var(--foreground) 45%, transparent);
 
   --measure: 40rem;
 }

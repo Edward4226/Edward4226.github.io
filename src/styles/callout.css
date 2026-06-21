@@ -62,8 +62,8 @@ prose-content {
   }
 
   [data-callout="note"]      { --accent: oklch(62.3% 0.214 259.815); }
-  [data-callout="tip"]       { --accent: oklch(72.3% 0.219 149.579); }
-  [data-callout="warning"]   { --accent: oklch(76.9% 0.188 70.08);   }
+  [data-callout="tip"]       { --accent: oklch(52% 0.2 149.579); }
+  [data-callout="warning"]   { --accent: oklch(52% 0.2 64);      }
   [data-callout="caution"]   { --accent: oklch(63.7% 0.237 25.331);  }
   [data-callout="important"] { --accent: oklch(62.7% 0.265 303.9);   }
 }

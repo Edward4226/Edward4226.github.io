@@ -2,7 +2,7 @@ prose-content {
   table {
     --table-border: color-mix(
       in oklab,
-      var(--muted-foreground) 30%,
+      var(--muted-foreground) 70%,
       transparent
     );
 

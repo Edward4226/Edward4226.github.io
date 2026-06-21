@@ -19,11 +19,11 @@
   --paper-ink:      oklch(27% 0.018 70);
   --paper-strong:   oklch(23% 0.018 70);
   --paper-surface:  oklch(91% 0.025 95);
-  --paper-muted-fg: oklch(49% 0.022 80);
+  --paper-muted-fg: oklch(43% 0.022 80);
   --paper-border:   oklch(85.5% 0.025 95);
-  --paper-ring:     oklch(66% 0.022 90);
+  --paper-ring:     oklch(52% 0.03 90);
 
-  --background:         light-dark(var(--paper-bg),       var(--color-neutral-950));
+  --background:         light-dark(var(--paper-bg),       oklch(14.5% 0.012 80));
   --foreground:         light-dark(var(--paper-ink),      var(--color-neutral-50));
   --primary:            light-dark(var(--paper-strong),   var(--color-neutral-200));
   --primary-foreground: light-dark(var(--paper-bg),       var(--color-neutral-900));
@@ -33,7 +33,7 @@
   --border:             light-dark(var(--paper-border),   var(--color-neutral-800));
   --ring:               light-dark(var(--paper-ring),     var(--color-neutral-500));
   /* warm accent: terracotta on paper / warm tan on dark (oscarmoxon-inspired) */
-  --accent:             light-dark(oklch(53% 0.1 45), oklch(74% 0.055 55));
+  --accent:             light-dark(oklch(44% 0.12 48), oklch(75% 0.095 58));
 
   color-scheme: light dark;
 }

@@ -1,0 +1,34 @@
+/*
+ * sparkline.css — styles for :::sparkline leaf directive
+ * Depends on CSS variables defined in color.css:
+ *   --accent, --muted-foreground, --border, --foreground
+ */
+
+.sparkline-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  vertical-align: middle;
+  /* allow wrapping on very narrow viewports */
+  flex-wrap: wrap;
+}
+
+.sparkline-label-text {
+  font-size: 0.8em;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+
+.sparkline-svg {
+  /* block to suppress inline descender gap */
+  display: block;
+  overflow: visible;
+  flex-shrink: 0;
+}
+
+.sparkline-caption {
+  font-size: 0.75em;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+  opacity: 0.75;
+}

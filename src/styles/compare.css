@@ -1,0 +1,112 @@
+/* :::compare 双色背离对比块
+ *
+ * 变量体系直接复用 callout.css 中的 --border、--muted-foreground，
+ * 以及 color.css 中已存在的全局 CSS 变量，不引入任何新自定义属性。
+ *
+ * 颜色语义：
+ *   down（下行/收缩）→ 暖红  oklch(50% 0.18 25)  ≈ 砖红，AAA 可读
+ *   up  （上行/增长）→ 冷绿  oklch(45% 0.14 150) ≈ 松绿，AAA 可读
+ *
+ * light-dark() 让深色模式自动调亮。
+ */
+
+prose-content {
+  [data-compare] {
+    --compare-gap: 0.75rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--compare-gap);
+    padding-block: 1rem;
+    padding-inline: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    background: light-dark(
+      oklch(98% 0 0 / 0.6),
+      oklch(18% 0 0 / 0.4)
+    );
+  }
+
+  /* 每一行对比项：label + nums + note 三段横排，换行后对齐 */
+  .compare-row {
+    display: grid;
+    /* label 固定宽，nums 弹性，note 自适应 */
+    grid-template-columns: minmax(6rem, 1fr) 2fr auto;
+    align-items: baseline;
+    gap: 0.25rem 0.75rem;
+    padding-block: 0.5rem;
+    border-block-end: 1px solid var(--border);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.9375rem; /* ~15px */
+  }
+
+  .compare-row:last-child {
+    border-block-end: none;
+    padding-block-end: 0;
+  }
+
+  /* label：类型标签，用静默前景色 */
+  .compare-label {
+    font-weight: var(--font-weight-medium);
+    color: var(--muted-foreground);
+    white-space: nowrap;
+  }
+
+  /* nums：核心数字段，继承行颜色 */
+  .compare-nums {
+    font-weight: var(--font-weight-medium);
+    letter-spacing: 0.01em;
+  }
+
+  /* note：补充说明，偏小偏淡 */
+  .compare-note {
+    font-size: 0.8125rem; /* ~13px */
+    opacity: 0.75;
+    text-align: end;
+    white-space: nowrap;
+  }
+
+  /* ── 方向色 ── */
+
+  /* down：下行/收缩 → 砖红 */
+  .compare-row[data-dir="down"] {
+    --row-accent: light-dark(
+      oklch(48% 0.18 25),
+      oklch(72% 0.14 25)
+    );
+  }
+
+  /* up：上行/增长 → 松绿 */
+  .compare-row[data-dir="up"] {
+    --row-accent: light-dark(
+      oklch(42% 0.14 150),
+      oklch(70% 0.12 150)
+    );
+  }
+
+  .compare-row[data-dir] .compare-nums {
+    color: var(--row-accent);
+  }
+
+  /* ── 移动端：单列堆叠 ── */
+  @media (width < 480px) {
+    .compare-row {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+    }
+
+    .compare-label {
+      grid-column: 1 / -1;
+      font-size: 0.8125rem;
+    }
+
+    .compare-nums {
+      grid-column: 1;
+    }
+
+    .compare-note {
+      grid-column: 2;
+      text-align: end;
+    }
+  }
+}

@@ -8,7 +8,7 @@ import { pageTitle, postSlug } from "@/lib/content"
 import { formatDate } from "@/lib/utils"
 import { type Lang, ui, blogHref, postHref } from "@/i18n"
 import { Image } from "astro:assets"
-import { getEntries, render, type CollectionEntry } from "astro:content"
+import { getCollection, getEntries, render, type CollectionEntry } from "astro:content"
 
 type Props = {
   post: CollectionEntry<"blog">
@@ -37,6 +37,21 @@ const minutes =
   lang === "zh"
     ? Math.max(1, Math.round(body.length / 400))
     : Math.max(1, Math.round(body.trim().split(/\s+/).length / 220))
+const words =
+  lang === "zh"
+    ? body.replace(/\s+/g, "").length
+    : body.trim().split(/\s+/).filter(Boolean).length
+const otherLang: Lang = lang === "zh" ? "en" : "zh"
+const allPosts = await getCollection("blog")
+const sibling = post.data.urlSlug
+  ? allPosts.find(
+      (p) =>
+        p.data.urlSlug === post.data.urlSlug &&
+        (p.data.lang ?? "en") === otherLang &&
+        !p.data.draft,
+    )
+  : undefined
+const otherLangHref = sibling ? postHref(otherLang, postSlug(sibling)) : null
 const authorNames = authors.map((a) => a.data.name).join(", ")
 const citation =
   lang === "zh"
@@ -60,6 +75,7 @@ const crumbs = [{ label: post.data.title, href: postHref(lang, slug) }]
         {authorNames && <post-authors>{authorNames}</post-authors>}
         <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
         <reading-time>{tr.minRead(minutes)}</reading-time>
+        <word-count>{tr.wordCount(words)}</word-count>
         {post.data.tags && (
           <post-tags>
             {post.data.tags.map((tag) => (
@@ -69,6 +85,9 @@ const crumbs = [{ label: post.data.title, href: postHref(lang, slug) }]
         )}
         {post.data.dataAsOf && <data-asof>{tr.dataAsOf(post.data.dataAsOf)}</data-asof>}
         <button class="cite-btn" data-cite={citation} data-done={tr.cited}>{tr.cite}</button>
+        {otherLangHref && (
+          <a class="lang-version-link" href={otherLangHref}>{tr.readInLang}</a>
+        )}
       </post-meta>
       <p>{post.data.description}</p>
     </header>
@@ -121,14 +140,7 @@ const crumbs = [{ label: post.data.title, href: postHref(lang, slug) }]
       font-size: var(--step--1);
       color: var(--muted-foreground);
 
-      post-authors ~ time::before,
-      time ~ reading-time::before,
-      reading-time ~ post-tags::before,
-      post-tags ~ data-asof::before,
-      reading-time ~ data-asof::before,
-      data-asof ~ .cite-btn::before,
-      post-tags ~ .cite-btn::before,
-      reading-time ~ .cite-btn::before {
+      > * + *::before {
         content: "·";
         margin-inline-end: var(--space-3xs);
       }
@@ -138,6 +150,14 @@ const crumbs = [{ label: post.data.title, href: postHref(lang, slug) }]
         flex-wrap: wrap;
         gap: var(--space-3xs);
         color: var(--muted-foreground);
+      }
+
+      .lang-version-link {
+        color: var(--muted-foreground);
+
+        &:hover {
+          color: var(--accent);
+        }
       }
 
       .cite-btn {

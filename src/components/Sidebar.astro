@@ -2,7 +2,7 @@
 import Logo from "@/assets/logo.svg"
 import ThemeToggle from "@/components/ThemeToggle.astro"
 import { normalizePath } from "@/lib/utils"
-import { getLang, ui, homeHref, blogHref, aboutHref, switchHref } from "@/i18n"
+import { getLang, ui, homeHref, blogHref, aboutHref, archiveHref, colophonHref, switchHref } from "@/i18n"
 
 type Props = { crumbs?: { label: string; href: string }[] }
 
@@ -12,7 +12,9 @@ const tr = ui[lang]
 const pathname = normalizePath(Astro.url.pathname) || "/"
 const NAVIGATION = [
   { href: blogHref(lang), label: tr.writing },
+  { href: archiveHref(lang), label: tr.archive },
   { href: aboutHref(lang), label: tr.about },
+  { href: colophonHref(lang), label: tr.colophon },
 ]
 const section = NAVIGATION.find(
   ({ href }) => pathname === href || pathname.startsWith(`${href}/`),

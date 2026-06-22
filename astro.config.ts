@@ -7,8 +7,6 @@ import {
 } from "./src/lib/expressive-code"
 import { temmlMath } from "./src/lib/math"
 import { calloutDirective } from "./src/lib/callout"
-import { compareDirective } from "./src/lib/compare"
-import { sparklineDirective } from "./src/lib/sparkline"
 import { externalLinks } from "./src/lib/external-links"
 import { headingNamespace } from "./src/lib/heading-namespace"
 
@@ -25,13 +23,7 @@ export default defineConfig({
     syntaxHighlight: false,
     processor: satteri({
       features: { directive: true, math: true },
-      mdastPlugins: [
-        calloutDirective,
-        compareDirective,
-        sparklineDirective,
-        inlineExpressiveCode,
-        temmlMath,
-      ],
+      mdastPlugins: [calloutDirective, inlineExpressiveCode, temmlMath],
       hastPlugins: [externalLinks, blockExpressiveCode, headingNamespace],
     }),
   },

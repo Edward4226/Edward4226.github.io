@@ -21,9 +21,7 @@ export const ui = {
     citeSource: "The Seam",
     switchLabel: "中文",
     about: "About",
-    archive: "Archive",
     now: "Now",
-    colophon: "Colophon",
     readInLang: "Read in Chinese",
     wordCount: (n: number) => `${n} words`,
     homeStance: "No fence-sitting. I post only once I've thought it through — then I say it flat out.",
@@ -45,9 +43,7 @@ export const ui = {
     citeSource: "枢机",
     switchLabel: "EN",
     about: "关于",
-    archive: "归档",
     now: "近况",
-    colophon: "工艺说明",
     readInLang: "阅读英文版",
     wordCount: (n: number) => `${n} 字`,
     homeStance: "不打太极,不骑墙。想清楚了才发,发了就说死。",
@@ -78,16 +74,8 @@ export function aboutHref(lang: Lang) {
   return lang === "zh" ? "/zh/about" : "/about"
 }
 
-export function archiveHref(lang: Lang) {
-  return lang === "zh" ? "/zh/archive" : "/archive"
-}
-
 export function nowHref(lang: Lang) {
   return lang === "zh" ? "/zh/now" : "/now"
-}
-
-export function colophonHref(lang: Lang) {
-  return lang === "zh" ? "/zh/colophon" : "/colophon"
 }
 
 // Toggle to the other language, preserving the current section/slug.

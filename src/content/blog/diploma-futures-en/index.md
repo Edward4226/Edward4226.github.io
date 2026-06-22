@@ -89,7 +89,17 @@ Right. That's the third guarantor: consensus. Parents treat admission to a famou
 
 The trouble with consensus is that it's always the last to react. Because to admit this note has depreciated is to admit that the road you walked, the road you paved for your kids, all has to be re-priced — and nobody wants to be the first to admit it. So you get a split screen: the canary in the data has long since fallen, and crowds are still lined up to buy in. Parents still urging their kids to "sell the pots and pans but get into grad school," HR still treating a famous school as the only standard — they aren't bad people, they're just people who haven't reset their clocks.
 
-What's interesting is that this time, the recognition is loosening faster than usual, and it's voting with its feet. Lay two sets of application figures side by side: graduate-school applications fell from a peak of 4.74 million in 2023 for three straight years, down to 3.43 million in 2026; over the same window, civil-service exam applications hit record highs year after year, climbing to 3.51 million in 2026. One curve sliding down, one climbing up. These two waves needn't be the same people, but the direction says it all: fewer keep leveraging up to buy more credentials, and more head straight for an iron rice bowl. There's a role in financial markets called the market-maker of last resort — when everyone refuses to take an asset, the only counter still posting bids at the old price is the official one. 3.51 million people crowding the civil-service exam is, in essence, a stampede toward the maker of last resort. And the day a note has only the state left willing to take it, it has effectively withdrawn from market circulation.
+What's interesting is that this time, the recognition is loosening faster than usual, and it's voting with its feet. Lay two sets of application figures side by side: graduate-school applications fell from a peak of 4.74 million in 2023 for three straight years, down to 3.43 million in 2026; over the same window, civil-service exam applications hit record highs year after year, climbing to 3.51 million in 2026.
+
+| Applications (millions) | Grad school | Civil service |
+| --- | --- | --- |
+| 2023 | 4.74 | 2.50 |
+| 2024 | 4.38 | 2.91 |
+| 2025 | 3.88 | 3.25 |
+| 2026 | 3.43 | 3.51 |
+| 3-yr change | −28% | +40% |
+
+One curve sliding down, one climbing up. These two waves needn't be the same people, but the direction says it all: fewer keep leveraging up to buy more credentials, and more head straight for an iron rice bowl. There's a role in financial markets called the market-maker of last resort — when everyone refuses to take an asset, the only counter still posting bids at the old price is the official one. 3.51 million people crowding the civil-service exam is, in essence, a stampede toward the maker of last resort. And the day a note has only the state left willing to take it, it has effectively withdrawn from market circulation.
 
 They may not be able to read ADP's payroll ledger, but the move their feet are making matches the verdict that canary gave, exactly.
 

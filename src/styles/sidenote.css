@@ -1,0 +1,39 @@
+prose-content {
+  counter-reset: sidenote;
+}
+
+.sidenote-ref {
+  counter-increment: sidenote;
+  color: var(--accent);
+  font-size: 0.7em;
+  vertical-align: super;
+  line-height: 0;
+  margin-inline-start: 0.1em;
+}
+
+.sidenote-ref::after {
+  content: counter(sidenote);
+}
+
+.sidenote {
+  display: block;
+  font-size: var(--step--1);
+  line-height: 1.55;
+  color: var(--muted-foreground);
+}
+
+.sidenote::before {
+  content: counter(sidenote);
+  color: var(--accent);
+  font-size: 0.8em;
+  vertical-align: super;
+  line-height: 0;
+  margin-inline-end: 0.35em;
+}
+
+/* inline annotation: note appears right where referenced, with an accent rule */
+.sidenote {
+  margin-block: 0.7em;
+  padding-inline-start: 0.9em;
+  border-inline-start: 2px solid var(--accent);
+}

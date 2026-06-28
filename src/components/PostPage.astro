@@ -119,6 +119,25 @@ const crumbs = [{ label: post.data.title, href: postHref(lang, slug) }]
       }
     })
   })
+
+  const articleEl = document.querySelector("article")
+  const proseEl = articleEl?.querySelector("prose-content")
+  if (articleEl && proseEl) {
+    document.addEventListener("copy", (e) => {
+      const sel = window.getSelection()
+      if (!sel || sel.isCollapsed || !sel.anchorNode) return
+      const picked = sel.toString()
+      if (picked.length < 60 || !proseEl.contains(sel.anchorNode)) return
+      const title = articleEl.getAttribute("data-title") ?? document.title
+      const url = location.origin + location.pathname
+      const zh = document.documentElement.lang.startsWith("zh")
+      const credit = zh
+        ? `\n\n— 来源:《${title}》 ${url}`
+        : `\n\n— Source: "${title}" ${url}`
+      e.clipboardData?.setData("text/plain", picked + credit)
+      e.preventDefault()
+    })
+  }
 </script>
 
 <style>

@@ -57,6 +57,11 @@ prose-content {
   text-wrap: pretty;
   overflow-wrap: break-word;
   hanging-punctuation: first last;
+  text-autospace: normal;
+
+  &:lang(en) {
+    line-height: 1.6;
+  }
 
   :where(
       p,

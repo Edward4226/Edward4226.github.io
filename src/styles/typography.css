@@ -8,6 +8,7 @@
 
   --font-weight-normal: 400;
   --font-weight-medium: 450;
+  --font-weight-bold: 700;
 
   --tracking-tight: 0em;
   --leading-offset: 0.65rem;
@@ -56,7 +57,7 @@ prose-content {
   color: var(--foreground);
   text-wrap: pretty;
   overflow-wrap: break-word;
-  hanging-punctuation: first last;
+  line-break: strict;
   text-autospace: normal;
 
   &:lang(en) {

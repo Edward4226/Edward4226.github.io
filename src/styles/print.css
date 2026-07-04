@@ -1,0 +1,50 @@
+@media print {
+  scroll-progress,
+  page-nav,
+  page-toc,
+  .cite-btn {
+    display: none !important;
+  }
+
+  page-grid {
+    display: block;
+    max-width: none;
+    min-height: 0;
+    padding: 0;
+  }
+
+  page-content {
+    grid-column: 1 / -1;
+    max-inline-size: none;
+    margin: 0;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  prose-content,
+  prose-content :is(p, li) {
+    color: #000;
+    font-size: 11pt;
+    line-height: 1.6;
+  }
+
+  prose-content a {
+    color: #000;
+    text-decoration: underline;
+  }
+
+  :is(h1, h2, h3, h4) {
+    break-after: avoid;
+  }
+
+  h2::before {
+    display: none;
+  }
+
+  prose-content :is(pre, blockquote, table, figure) {
+    break-inside: avoid;
+  }
+}

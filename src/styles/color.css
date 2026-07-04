@@ -24,7 +24,7 @@
   --paper-ring:     oklch(52% 0.03 90);
 
   --background:         light-dark(var(--paper-bg),       oklch(14.5% 0.012 80));
-  --foreground:         light-dark(var(--paper-ink),      var(--color-neutral-50));
+  --foreground:         light-dark(var(--paper-ink),      oklch(93.5% 0.005 85));
   --primary:            light-dark(var(--paper-strong),   var(--color-neutral-200));
   --primary-foreground: light-dark(var(--paper-bg),       var(--color-neutral-900));
   --muted:              light-dark(var(--paper-surface),  var(--color-neutral-800));

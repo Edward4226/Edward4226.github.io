@@ -6,11 +6,20 @@ prose-content {
 
   :is(strong, b) {
     color: var(--foreground);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-bold);
   }
 
   :is(em, i) {
     font-style: italic;
+
+    /* Chinese has no italic tradition — use emphasis dots (着重号) instead of ugly faux-slant */
+    &:lang(zh) {
+      font-style: normal;
+      text-emphasis: filled dot;
+      -webkit-text-emphasis: filled dot;
+      text-emphasis-position: under;
+      -webkit-text-emphasis-position: under;
+    }
   }
 
   :where(code) {

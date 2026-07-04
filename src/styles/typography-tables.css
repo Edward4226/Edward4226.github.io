@@ -57,3 +57,28 @@ prose-content {
     }
   }
 }
+
+/* :::wide — data-dense mode: drop the roomy per-cell min-width so
+   many-column numeric tables fit the content column; scroll as fallback */
+prose-content wide-block {
+  display: block;
+  margin-block: 0 1em;
+  overflow-x: auto;
+
+  table {
+    margin-inline: 0;
+    max-inline-size: none;
+    inline-size: 100%;
+  }
+
+  :is(th, td) {
+    min-width: 0;
+    max-width: none;
+    padding: 0.5em 0.75em;
+    white-space: nowrap;
+  }
+
+  > :last-child {
+    margin-block-end: 0;
+  }
+}

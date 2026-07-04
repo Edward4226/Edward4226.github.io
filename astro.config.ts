@@ -7,6 +7,7 @@ import {
 } from "./src/lib/expressive-code"
 import { temmlMath } from "./src/lib/math"
 import { calloutDirective } from "./src/lib/callout"
+import { wideDirective } from "./src/lib/wide"
 import { externalLinks } from "./src/lib/external-links"
 import { headingNamespace } from "./src/lib/heading-namespace"
 
@@ -23,7 +24,7 @@ export default defineConfig({
     syntaxHighlight: false,
     processor: satteri({
       features: { directive: true, math: true },
-      mdastPlugins: [calloutDirective, inlineExpressiveCode, temmlMath],
+      mdastPlugins: [calloutDirective, wideDirective, inlineExpressiveCode, temmlMath],
       hastPlugins: [externalLinks, blockExpressiveCode, headingNamespace],
     }),
   },

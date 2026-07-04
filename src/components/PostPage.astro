@@ -217,3 +217,12 @@ const crumbs = [{ label: post.data.title, href: postHref(lang, slug) }]
     }
   }
 </style>
+
+<script>
+  // lazy image zoom: load medium-zoom only when the article actually has images
+  const imgs = document.querySelectorAll("prose-content img")
+  if (imgs.length > 0) {
+    const { default: mediumZoom } = await import("medium-zoom")
+    mediumZoom(imgs as NodeListOf<HTMLElement>, { margin: 24 })
+  }
+</script>

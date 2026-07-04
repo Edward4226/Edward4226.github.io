@@ -26,6 +26,7 @@
     "hast-util-to-html": "^9.0.5",
     "hastscript": "^9.0.1",
     "markdown-it": "^14.2.0",
+    "medium-zoom": "^1.1.0",
     "sanitize-html": "^2.17.5",
     "satteri-expressive-code": "^0.1.8",
     "temml": "^0.13.3"

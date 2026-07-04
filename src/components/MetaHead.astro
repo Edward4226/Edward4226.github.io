@@ -7,6 +7,11 @@ import { getLang, ui, switchHref } from "@/i18n"
 const lang = getLang(Astro.url)
 const tr = ui[lang]
 const altHref = switchHref(Astro.url)
+// Article pages handle hreflang themselves (MetaPost) — a translation may
+// not exist, and a blind pair would point at a 404. Static pages always
+// have both languages, so the unconditional pair is safe there.
+const isArticle = /^\/(zh\/)?blog\/.+/.test(Astro.url.pathname)
+const enHref = lang === "zh" ? altHref : Astro.url.pathname
 ---
 
 <head>
@@ -57,8 +62,13 @@ const altHref = switchHref(Astro.url)
     title={tr.siteName}
     href={new URL(lang === "zh" ? "zh/rss.xml" : "rss.xml", Astro.site)}
   >
-  <link rel="alternate" hreflang={lang} href={new URL(Astro.url.pathname, Astro.site)}>
-  <link rel="alternate" hreflang={lang === "zh" ? "en" : "zh"} href={new URL(altHref, Astro.site)}>
+  {!isArticle && (
+    <>
+      <link rel="alternate" hreflang={lang} href={new URL(Astro.url.pathname, Astro.site)} />
+      <link rel="alternate" hreflang={lang === "zh" ? "en" : "zh"} href={new URL(altHref, Astro.site)} />
+      <link rel="alternate" hreflang="x-default" href={new URL(enHref, Astro.site)} />
+    </>
+  )}
 
   <link rel="preload" href={sansWoff2} as="font" type="font/woff2" crossorigin>
   <link

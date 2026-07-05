@@ -45,7 +45,7 @@ I'll put the conclusion up front: all four are failing at once.
 
 First, the redeemer. A diploma can be exchanged for a good job because someone is willing to accept the note with a good job — for the past several decades, mainly the big-company hiring desk.
 
-What's happening on that side, I half-said in the opening: big companies aren't firing, they're declining to hire newcomers. Three more details. Within the same company, demand for junior roles has dropped by roughly a third while demand for senior roles has barely moved; this is happening almost only in tech, not elsewhere; and the entry-level seats that "ought" to be the safest, most protected by ordinary logic, are the ones falling hardest.
+What's happening on that side, I half-said in the opening: big companies aren't firing, they're declining to hire newcomers. Three more details. Within the same company, demand for junior roles has dropped by roughly 22% while demand for senior roles has barely moved; this is happening almost only in tech, not elsewhere; and the entry-level seats that "ought" to be the safest, most protected by ordinary logic, are the ones falling hardest.
 
 Pull any one of these three out and you can find another explanation; put them together and only one explanation holds. Even the economists who first spotted the canary say AI isn't the only variable — but the only thing that strings all three together into one line is AI.
 
@@ -89,17 +89,17 @@ Right. That's the third guarantor: consensus. Parents treat admission to a famou
 
 The trouble with consensus is that it's always the last to react. Because to admit this note has depreciated is to admit that the road you walked, the road you paved for your kids, all has to be re-priced — and nobody wants to be the first to admit it. So you get a split screen: the canary in the data has long since fallen, and crowds are still lined up to buy in. Parents still urging their kids to "sell the pots and pans but get into grad school," HR still treating a famous school as the only standard — they aren't bad people, they're just people who haven't reset their clocks.
 
-What's interesting is that this time, the recognition is loosening faster than usual, and it's voting with its feet. Lay two sets of application figures side by side: graduate-school applications fell from a peak of 4.74 million in 2023 for three straight years, down to 3.43 million in 2026; over the same window, civil-service exam applications hit record highs year after year, climbing to 3.51 million in 2026.
+What's interesting is that this time, the recognition is loosening faster than usual, and it's voting with its feet. Lay two sets of application figures side by side: graduate-school applications fell from a peak of 4.74 million in 2023 for three straight years, down to 3.43 million in 2026; over the same window, civil-service exam applications (those clearing qualification review) hit record highs year after year, climbing to 3.72 million in 2026.
 
 | Applications (millions) | Grad school | Civil service |
 | --- | --- | --- |
-| 2023 | 4.74 | 2.50 |
-| 2024 | 4.38 | 2.91 |
-| 2025 | 3.88 | 3.25 |
-| 2026 | 3.43 | 3.51 |
-| 3-yr change | −28% | +40% |
+| 2023 | 4.74 | 2.60 |
+| 2024 | 4.38 | 3.03 |
+| 2025 | 3.88 | 3.42 |
+| 2026 | 3.43 | 3.72 |
+| 3-yr change | −28% | +43% |
 
-One curve sliding down, one climbing up. These two waves needn't be the same people, but the direction says it all: fewer keep leveraging up to buy more credentials, and more head straight for an iron rice bowl. There's a role in financial markets called the market-maker of last resort — when everyone refuses to take an asset, the only counter still posting bids at the old price is the official one. 3.51 million people crowding the civil-service exam is, in essence, a stampede toward the maker of last resort. And the day a note has only the state left willing to take it, it has effectively withdrawn from market circulation.
+One curve sliding down, one climbing up. These two waves needn't be the same people, but the direction says it all: fewer keep leveraging up to buy more credentials, and more head straight for an iron rice bowl. There's a role in financial markets called the market-maker of last resort — when everyone refuses to take an asset, the only counter still posting bids at the old price is the official one. 3.72 million people crowding the civil-service exam is, in essence, a stampede toward the maker of last resort. And the day a note has only the state left willing to take it, it has effectively withdrawn from market circulation.
 
 They may not be able to read ADP's payroll ledger, but the move their feet are making matches the verdict that canary gave, exactly.
 
@@ -134,3 +134,17 @@ The one thing I want to make clear: the note in your hand is being pressed down 
 ---
 
 **Postscript.** The first draft of this was written in June 2023, and it didn't start with diplomas. Back then I was watching something bigger: every step technology takes squeezes a few more people out of production. What I could see then was only software, Excel, machines that need less and less minding — I had a vague sense the line would eventually reach universities and diplomas, but I could never put it cleanly, because I was missing the last piece: I couldn't yet imagine that "thinking" itself could be mass-produced. Three years later, that piece grew in on its own. Its name is AI. So this isn't a piece chasing a trend — it's a judgment set down three years ago that was missing one variable, and the variable has now arrived.
+
+---
+
+**Sources.** Every hard number in this piece, for the record:
+
+- ADP "canaries" — employment for 22–25-year-olds down 13%–16% in AI-exposed jobs: Stanford Digital Economy Lab, Brynjolfsson et al., *Canaries in the Coal Mine?* (2025). 13% is the first draft, 16% the final version.
+- Within-firm junior hiring down ~22% while senior roles hold flat: *Generative AI as Seniority-Biased Technological Change* (2025, SSRN 5425555).
+- Private return to one extra year of schooling ~10%: Mincer-equation consensus (IZA World of Labor / World Bank). The social return runs well below the private one; "2–3%" is a rough characterization, not a single-source figure.
+- US 25+ bachelor's share <5% (1940) / 11% (1970) / 38% (today): US Census historical educational-attainment data.
+- China's bachelor's share by cohort 3.5%→28%: estimated as enrollment ÷ same-year birth cohort (not an official statistic); gross tertiary enrollment 9.8% (1998) → 60.2% (2023) from Ministry of Education bulletins.
+- Grad-school registrations 4.74→3.43M / civil-service applicants clearing review 2.60→3.72M: MoE graduate-admissions network / National Civil Service Administration.
+- Share of new code at Google generated by AI, over 25% (2024 Q3): Sundar Pichai, earnings call.
+
+Data-as-of is at the top. Spot an error? Tell me — this table is part of the piece.

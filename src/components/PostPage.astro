@@ -1,5 +1,6 @@
 ---
 import MetaPost from "@/components/MetaPost.astro"
+import Newsletter from "@/components/Newsletter.astro"
 import PostActions from "@/components/PostActions.astro"
 import ScrollToTop from "@/components/ScrollToTop.astro"
 import TableOfContents from "@/components/TableOfContents.astro"
@@ -100,6 +101,7 @@ const crumbs = [{ label: post.data.title, href: postHref(lang, slug) }]
       <Content />
     </prose-content>
   </article>
+  <Newsletter lang={lang} />
 </Layout>
 
 <script>

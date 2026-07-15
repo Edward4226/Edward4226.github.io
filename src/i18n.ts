@@ -25,6 +25,12 @@ export const ui = {
     readInLang: "Read in Chinese",
     wordCount: (n: number) => `${n} words`,
     homeStance: "No fence-sitting. I post only once I've thought it through — then I say it flat out.",
+    newsletterNote: "One email when a new essay lands — nothing else.",
+    newsletterEmailLabel: "Email address",
+    newsletterPlaceholder: "you@example.com",
+    newsletterButton: "Subscribe",
+    newsletterDone: "Almost there — check your inbox to confirm.",
+    newsletterRss: "or via RSS",
   },
   zh: {
     siteName: "枢机",
@@ -47,6 +53,12 @@ export const ui = {
     readInLang: "阅读英文版",
     wordCount: (n: number) => `${n} 字`,
     homeStance: "不打太极,不骑墙。想清楚了才发,发了就说死。",
+    newsletterNote: "有新文章时,发你一封邮件。仅此而已。",
+    newsletterEmailLabel: "邮箱地址",
+    newsletterPlaceholder: "你的邮箱",
+    newsletterButton: "订阅",
+    newsletterDone: "就差一步——查收邮件,点确认链接。",
+    newsletterRss: "或用 RSS",
   },
 } as const
 

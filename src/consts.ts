@@ -8,7 +8,8 @@ export const SITE = {
   locale: "en-US",
   dir: "ltr",
   defaultPageImage: "/static/opengraph-image.png",
-  defaultPostImage: "/static/1200x630.png",
+  // Posts use per-article OG images generated at build time (see
+  // src/pages/og/[route].png.ts); only static pages fall back to a shared image.
   // Search-engine verification tokens. Paste the value from
   // Google Search Console / Bing Webmaster (HTML-tag method) here.
   googleSiteVerification: "",
@@ -18,3 +19,10 @@ export const SITE = {
 export const SOCIALS: { href: string; label: string; icon: SvgComponent }[] = [
   { href: "/rss.xml", label: "RSS", icon: RSS },
 ]
+
+export const NEWSLETTER = {
+  // Buttondown username. Leave "" and the signup form stays hidden everywhere.
+  // Once registered at buttondown.com (≤100 subscribers is free), paste the
+  // account username here to turn the form on site-wide — no other change needed.
+  buttondownUsername: "",
+} as const

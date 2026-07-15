@@ -1,7 +1,6 @@
 ---
 import { getCollection, getEntries, type CollectionEntry } from "astro:content"
-import { SITE } from "@/consts"
-import { pageTitle, postSlug } from "@/lib/content"
+import { pageTitle, postSlug, ogSlug } from "@/lib/content"
 import { type Lang, ui, postHref, aboutHref } from "@/i18n"
 
 type Props = {
@@ -19,9 +18,11 @@ const authors = await getEntries(post.data.authors)
 const authorNames = authors.map((author) => author.data.name)
 const url = new URL(Astro.url.pathname, base)
 const canonical = new URL(canonicalPath ?? Astro.url.pathname, base)
+// Prefer an explicit frontmatter image; otherwise use the per-post OG image
+// generated at build time by /og/[route].png.ts.
 const ogImage = image
   ? new URL(image.src, base)
-  : new URL(SITE.defaultPostImage, base)
+  : new URL(`/og/${ogSlug(post)}.png`, base)
 
 // hreflang: emit only when the same slug truly exists in the other language
 const slug = postSlug(post)

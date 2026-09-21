@@ -35,6 +35,12 @@ const blog = defineCollection({
       dataAsOf: z.string().optional(),
       lang: z.enum(["en", "zh"]).default("en"),
       urlSlug: z.string().optional(),
+      kind: z.enum(["essay", "signal"]).default("essay"),
+      dossier: z.string().optional(),
+      updated: z.coerce.date().optional(),
+      sources: z.array(z.object({ title: z.string(), url: z.url() })).optional(),
+      revisions: z.array(z.object({ date: z.coerce.date(), note: z.string() })).optional(),
+      changeMyMind: z.string().optional(),
     }),
 })
 

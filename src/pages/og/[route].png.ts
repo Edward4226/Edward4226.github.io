@@ -4,7 +4,7 @@ import { ogSlug } from "@/lib/content"
 import { renderPostOg } from "@/lib/og"
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await getCollection("blog", (p) => !p.data.draft)
+  const posts = await getCollection("blog", (p) => !p.data.draft || import.meta.env.DEV)
   return posts.map((post) => ({
     params: { route: ogSlug(post) },
     props: { post },

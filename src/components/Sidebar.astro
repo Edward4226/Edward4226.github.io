@@ -1,7 +1,7 @@
 ---
 import Logo from "@/assets/logo.svg"
-import ThemeToggle from "@/components/ThemeToggle.astro"
 import { normalizePath } from "@/lib/utils"
+import { getPosts, postSlug } from "@/lib/content"
 import { getLang, ui, homeHref, blogHref, aboutHref, switchHref } from "@/i18n"
 
 type Props = { crumbs?: { label: string; href: string }[] }
@@ -12,11 +12,20 @@ const tr = ui[lang]
 const pathname = normalizePath(Astro.url.pathname) || "/"
 const NAVIGATION = [
   { href: blogHref(lang), label: tr.writing },
+  { href: lang === "zh" ? "/zh/dossiers" : "/dossiers", label: lang === "zh" ? "专题" : "Dossiers" },
   { href: aboutHref(lang), label: tr.about },
 ]
 const section = NAVIGATION.find(
   ({ href }) => pathname === href || pathname.startsWith(`${href}/`),
 )
+const otherLang = lang === "zh" ? "en" : "zh"
+const articleMatch = pathname.match(/^\/(?:zh\/)?blog\/(.+)$/)
+const hasTranslation = !articleMatch || (await getPosts(otherLang)).some(
+  (post) => postSlug(post) === articleMatch[1],
+)
+const languageHref = pathname === "/404" || pathname === "/404.html"
+  ? homeHref(otherLang)
+  : hasTranslation ? switchHref(Astro.url) : blogHref(otherLang)
 ---
 
 <aside>
@@ -68,8 +77,7 @@ const section = NAVIGATION.find(
     </nav>
   </sidebar-inner>
   <sidebar-toggle>
-    <ThemeToggle />
-    <a class="lang-switch" href={switchHref(Astro.url)} aria-label="switch language">{tr.switchLabel}</a>
+    <a class="lang-switch" href={languageHref} aria-label={hasTranslation ? "switch language" : "Browse articles in the other language"}>{tr.switchLabel}</a>
     <slot name="actions" />
   </sidebar-toggle>
 </aside>

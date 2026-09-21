@@ -1,0 +1,31 @@
+---
+import { getPosts, postSlug } from "@/lib/content"
+import { type Lang, postHref } from "@/i18n"
+import { getDossiers, dossierHref } from "@/lib/dossiers"
+type Props = { lang: Lang }
+const { lang } = Astro.props
+const topics = await getDossiers(lang)
+---
+<section>
+  <h1>{lang === "zh" ? "专题" : "Dossiers"}</h1>
+  <p class="intro">{lang === "zh" ? "沿着一个问题，连接长文与短札。" : "Essays and signals connected by a shared question."}</p>
+  {topics.map(topic => <section class="dossier">
+    <h2><a href={dossierHref(lang, topic.slug)}>{topic.title} →</a></h2>
+    <p>{topic.description}</p>
+    <ul>{topic.posts.map(post => <li>
+      <span>{post.data.kind === "signal" ? (lang === "zh" ? "短札" : "Signal") : (lang === "zh" ? "长文" : "Essay")}</span>
+      <a href={postHref(lang, postSlug(post))}>{post.data.title}</a>
+      {post.data.draft && <small>{lang === "zh" ? "编辑预览" : "Draft"}</small>}
+      <p>{post.data.description}</p>
+    </li>)}</ul>
+  </section>)}
+</section>
+<style>
+  h1 {font-size:var(--step-3);font-weight:var(--font-weight-medium)}
+  .intro,span,small{color:var(--muted-foreground)}
+  .intro{margin-block:var(--space-xs) var(--space-l)}
+  .dossier{margin-block-end:var(--space-l)}
+  h2{font-size:var(--step-1);font-weight:var(--font-weight-medium);margin-block-end:var(--space-s)}
+  ul{list-style:none;padding:0}li{margin-block-end:var(--space-m)}span,small{font-size:var(--step--1);margin-inline-end:var(--space-2xs)}
+  p{margin-block-start:var(--space-2xs);line-height:1.8}
+</style>

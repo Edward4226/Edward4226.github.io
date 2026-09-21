@@ -1,0 +1,47 @@
+---
+import { getPosts, postSlug } from "@/lib/content"
+import { getDossiers, dossierHref } from "@/lib/dossiers"
+import { type Lang, ui, postHref, blogHref } from "@/i18n"
+import { formatDate } from "@/lib/utils"
+type Props = { lang: Lang }
+const { lang } = Astro.props, zh = lang === "zh"
+const posts = await getPosts(lang)
+const featured = posts.find(post => !post.data.draft) ?? posts[0]
+const rest = posts.filter(post => post.id !== featured?.id)
+const topics = await getDossiers(lang)
+---
+<section class="opening">
+  <div class="thesis">
+    <p class="eyebrow">{zh ? "枢机 / THE SEAM" : "THE SEAM / 枢机"}</p>
+    {featured ? <>
+      <h1><a href={postHref(lang, postSlug(featured))}>{featured.data.title}</a></h1>
+      <p class="description">{featured.data.description}</p>
+      <div class="read"><a href={postHref(lang, postSlug(featured))}>{zh ? "阅读长文" : "Read the essay"} ↗</a><time datetime={featured.data.date.toISOString()}>{formatDate(featured.data.date)}</time>{featured.data.draft && <span>{zh ? "草稿" : "Draft"}</span>}</div>
+    </> : <h1>{ui[lang].tagline}</h1>}
+  </div>
+  <aside class="stance">
+    <p class="eyebrow">{zh ? "写在这里" : "A place for judgment"}</p>
+    <h2>{ui[lang].tagline}</h2>
+    <p>{ui[lang].description}</p>
+    <a href={zh ? "/zh/about" : "/about"}>{zh ? "关于这个博客" : "About this blog"} →</a>
+  </aside>
+</section>
+{rest.length > 0 && <section class="writing">
+  <div class="section-heading"><h2>{zh ? "继续阅读" : "Further reading"}</h2><a href={blogHref(lang)}>{ui[lang].allPosts}</a></div>
+  <ul>{rest.map(post => <li><div><p class="eyebrow">{post.data.kind === "signal" ? "SIGNAL" : "ESSAY"}{post.data.draft && (zh ? " · 编辑预览" : " · DRAFT")}</p><h3><a href={postHref(lang, postSlug(post))}>{post.data.title}</a></h3><p>{post.data.description}</p></div><time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time></li>)}</ul>
+</section>}
+<section class="topics">
+  <div class="section-heading"><h2>{zh ? "沿着问题读下去" : "Follow a question"}</h2><span>{zh ? "专题" : "Dossiers"}</span></div>
+  <div>{topics.map(topic => <a class="topic" href={dossierHref(lang, topic.slug)}><h3>{topic.title} ↗</h3><p>{topic.description}</p><small>{topic.posts.length} {zh ? "篇文章" : topic.posts.length === 1 ? "piece" : "pieces"}</small></a>)}</div>
+</section>
+<section class="follow"><h2>{zh ? "有新文章时，再见。" : "Until the next essay."}</h2><p>{zh ? "通过 RSS 接收新文章，也可以把喜欢的文章留给以后重读。" : "Follow new essays with RSS, or keep a piece to return to later."}</p><a href={zh ? "/zh/rss.xml" : "/rss.xml"}>{zh ? "订阅 RSS" : "Subscribe via RSS"} ↗</a></section>
+<style>
+  .opening{display:grid;grid-template-columns:1.65fr 1fr;border-bottom:1px solid var(--border);margin-top:-54px}.thesis{padding:90px 60px 82px 0}.eyebrow{font-family:var(--font-sans);font-size:12px;letter-spacing:.1em;color:var(--muted-foreground);text-transform:uppercase}.thesis>.eyebrow{color:var(--accent);margin-bottom:36px}
+  h1{font-size:clamp(36px,4.8vw,68px);line-height:1.18;font-weight:400;letter-spacing:-.025em;max-width:780px}h1 a{color:var(--foreground)}.description{font-size:clamp(18px,1.7vw,23px);line-height:1.75;color:var(--muted-foreground);margin:32px 0 38px}.read{display:flex;align-items:center;flex-wrap:wrap;gap:22px;font-family:var(--font-sans);font-size:13px}.read a{color:var(--foreground);border-bottom:1px solid var(--border);padding-bottom:9px}.read time,.read span{color:var(--muted-foreground)}
+  .stance{border-left:1px solid var(--border);padding:90px 0 70px 54px;display:flex;flex-direction:column;justify-content:center}.stance h2{font-size:clamp(23px,2.5vw,34px);line-height:1.55;font-weight:400;margin:24px 0}.stance>p:not(.eyebrow){color:var(--muted-foreground);line-height:1.85}.stance>a{font-family:var(--font-sans);font-size:13px;margin-top:32px}
+  .writing,.topics{padding:64px 0;border-bottom:1px solid var(--border)}.section-heading{display:flex;justify-content:space-between;align-items:baseline;gap:20px;margin-bottom:36px}.section-heading h2,.follow h2{font-size:clamp(24px,3vw,36px);font-weight:400}.section-heading>a,.section-heading>span{font-family:var(--font-sans);font-size:13px;color:var(--muted-foreground)}
+  ul{list-style:none;margin:0;padding:0}li{display:flex;justify-content:space-between;gap:32px;padding:28px 0;border-top:1px solid var(--border)}li:first-child{border:0;padding-top:0}h3{font-size:clamp(21px,2.1vw,28px);font-weight:400;line-height:1.55;margin:12px 0}h3 a{color:var(--foreground)}li p:not(.eyebrow){color:var(--muted-foreground);line-height:1.8;max-width:700px}li time{font-family:var(--font-sans);font-size:12px;color:var(--muted-foreground);white-space:nowrap;padding-top:12px}
+  .topics>div:last-child{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:36px}.topic{display:block;color:var(--foreground)}.topic p{color:var(--muted-foreground);line-height:1.8}.topic small{display:block;color:var(--muted-foreground);margin-top:24px;font-family:var(--font-sans);font-size:12px}.follow{padding:64px 0 24px}.follow p{line-height:1.8;color:var(--muted-foreground);margin:20px 0}.follow a{font-family:var(--font-sans);font-size:14px}
+  @media(max-width:900px){.opening{grid-template-columns:1fr;margin-top:0}.thesis{padding:32px 0 48px}.stance{padding:36px 0;border-left:0;border-top:1px solid var(--border)}.stance h2{max-width:550px;font-size:28px}.stance>a{margin-top:20px}.writing,.topics,.follow{padding-block:42px}.description{max-width:650px}h1{max-width:750px;font-size:clamp(34px,7vw,56px)}}
+  @media(max-width:600px){li{display:block}li time{display:block;margin-top:18px}.section-heading{align-items:start}.section-heading a{white-space:nowrap}h1{line-height:1.3}.thesis>.eyebrow{margin-bottom:24px}}
+</style>

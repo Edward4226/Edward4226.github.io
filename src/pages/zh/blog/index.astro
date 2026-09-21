@@ -1,24 +1,10 @@
 ---
-import BlogCard from "@/components/BlogCard.astro"
+import Archive from "@/components/Archive.astro"
 import MetaPage from "@/components/MetaPage.astro"
 import Layout from "@/layouts/Layout.astro"
-import { getPosts } from "@/lib/content"
 import { ui } from "@/i18n"
-
-const posts = await getPosts("zh")
 ---
-
 <Layout>
   <MetaPage slot="head" title={ui.zh.writing} />
-  <ul>
-    {posts.map((post) => <BlogCard post={post} lang="zh" />)}
-  </ul>
+  <Archive lang="zh" />
 </Layout>
-
-<style>
-  ul {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-l);
-  }
-</style>

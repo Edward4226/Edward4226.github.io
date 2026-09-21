@@ -71,11 +71,14 @@ const crumbs = [{ label: post.data.title, href: postHref(lang, slug) }]
   <ScrollToTop floating />
   <article data-url={postHref(lang, slug)} data-title={pageTitle(post.data.title, lang)}>
     <header>
+      {post.data.draft && <p class="draft-note">编辑预览 · 此稿尚未定稿，仅在本地开发预览中显示。</p>}
       <h1>{post.data.title}</h1>
       <post-meta>
         {authorNames && <post-authors>{authorNames}</post-authors>}
         <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
         <reading-time>{tr.minRead(minutes)}</reading-time>
+        <span>{post.data.kind === "signal" ? (lang === "zh" ? "短札" : "Signal") : (lang === "zh" ? "长文" : "Essay")}</span>
+        {post.data.updated && <span>{lang === "zh" ? "更新于 " : "Updated "}{formatDate(post.data.updated)}</span>}
         <word-count>{tr.wordCount(words)}</word-count>
         {post.data.tags && (
           <post-tags>
@@ -86,6 +89,7 @@ const crumbs = [{ label: post.data.title, href: postHref(lang, slug) }]
         )}
         {post.data.dataAsOf && <data-asof>{tr.dataAsOf(post.data.dataAsOf)}</data-asof>}
         <button class="cite-btn" data-cite={citation} data-done={tr.cited}>{tr.cite}</button>
+        <a href={`${postHref(lang, slug)}.md`}>Markdown</a>
         {otherLangHref && (
           <a class="lang-version-link" href={otherLangHref}>{tr.readInLang}</a>
         )}
@@ -99,6 +103,12 @@ const crumbs = [{ label: post.data.title, href: postHref(lang, slug) }]
     )}
     <prose-content>
       <Content />
+      {post.data.sources?.length && <section aria-label={lang === "zh" ? "来源" : "Sources"}>
+        <h2>{lang === "zh" ? "来源" : "Sources"}</h2>
+        <ul>{post.data.sources.map(source => <li><a href={source.url}>{source.title}</a></li>)}</ul>
+      </section>}
+      {post.data.changeMyMind && <section><h2>{lang === "zh" ? "什么会改变我的判断" : "What would change my mind"}</h2><p>{post.data.changeMyMind}</p></section>}
+      {post.data.revisions?.length && <section><h2>{lang === "zh" ? "修订记录" : "Revision history"}</h2><ul>{post.data.revisions.map(revision => <li><time datetime={revision.date.toISOString()}>{formatDate(revision.date)}</time> — {revision.note}</li>)}</ul></section>}
     </prose-content>
   </article>
   <Newsletter lang={lang} />

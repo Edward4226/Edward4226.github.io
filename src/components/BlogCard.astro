@@ -20,6 +20,7 @@ const href = postHref(lang, postSlug(post))
     )}
   <entry-info>
     <a href={href}>{post.data.title}</a>
+    {post.data.draft && <small>编辑预览 · 草稿</small>}
     <entry-meta>
       {authors.length > 0 && (
           <entry-authors>

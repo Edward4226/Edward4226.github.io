@@ -22,6 +22,7 @@ const fmtMonth = (d: Date) =>
         <li>
           <span class="post-month">{fmtMonth(post.data.date)},</span>
           <a href={postHref(lang, postSlug(post))}>{post.data.title}</a>
+          {post.data.draft && <small> · 草稿</small>}
         </li>
       ))}
   </ul>

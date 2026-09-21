@@ -1,0 +1,35 @@
+---
+import Logo from "@/assets/logo.svg"
+import { getPosts, postSlug } from "@/lib/content"
+import { getDossiers } from "@/lib/dossiers"
+import { getLang, ui, homeHref, blogHref, aboutHref, switchHref } from "@/i18n"
+const lang = getLang(Astro.url), otherLang = lang === "zh" ? "en" : "zh"
+const path = Astro.url.pathname.replace(/\/$/, "")
+const article = path.match(/^\/(?:zh\/)?blog\/(.+)$/)
+const dossier = path.match(/^\/(?:zh\/)?dossiers\/(.+)$/)
+let languageHref = switchHref(Astro.url)
+if (article && !(await getPosts(otherLang)).some(post => postSlug(post) === article[1])) languageHref = blogHref(otherLang)
+if (dossier && !(await getDossiers(otherLang)).some(topic => topic.slug === dossier[1])) languageHref = `${otherLang === "zh" ? "/zh" : ""}/dossiers`
+if (path === "/404" || path === "/404.html") languageHref = homeHref(otherLang)
+const links = [
+  { href: blogHref(lang), label: ui[lang].writing },
+  { href: `${lang === "zh" ? "/zh" : ""}/dossiers`, label: lang === "zh" ? "专题" : "Dossiers" },
+  { href: aboutHref(lang), label: ui[lang].about },
+]
+---
+<a class="skip" href="#main">{lang === "zh" ? "跳至正文" : "Skip to content"}</a>
+<header class="site-header">
+  <a class="brand" href={homeHref(lang)} aria-label={ui[lang].siteName}><Logo /><span>{ui[lang].siteName}</span></a>
+  <nav aria-label={lang === "zh" ? "主导航" : "Main navigation"}>
+    {links.map(link => <a href={link.href} aria-current={path === link.href || path.startsWith(link.href + "/") ? "page" : undefined}>{link.label}</a>)}
+  </nav>
+  <a class="language" href={languageHref} lang={otherLang} aria-label={lang === "zh" ? "Browse in English" : "阅读中文"}>{ui[lang].switchLabel}</a>
+</header>
+<style>
+  .skip{position:fixed;top:-100px;left:1rem;z-index:100;background:var(--background);padding:1rem}.skip:focus{top:1rem}
+  .site-header{max-width:1280px;margin:auto;padding:30px 36px;display:flex;align-items:center;gap:40px;border-bottom:1px solid var(--border);font-family:var(--font-sans);font-size:14px}
+  .brand{display:flex;align-items:center;gap:12px;color:var(--foreground);letter-spacing:.13em;font-weight:500;margin-right:auto}.brand :global(svg){width:22px;height:22px}
+  nav{display:flex;gap:32px}nav a,.language{color:var(--muted-foreground)}nav a[aria-current],a:hover{color:var(--foreground)}
+  @media(max-width:640px){.site-header{padding:20px;gap:22px;font-size:13px}nav{gap:18px}.brand{gap:8px}.brand span{letter-spacing:.05em}}
+  @media(max-width:380px){.site-header{padding:18px 14px;gap:14px}nav{gap:14px}.brand :global(svg){display:none}}
+</style>

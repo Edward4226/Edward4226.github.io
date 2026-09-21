@@ -16,7 +16,7 @@ export const ogSlug = (post: CollectionEntry<"blog">) =>
 export async function getPosts(
   lang: Lang = defaultLang,
 ): Promise<CollectionEntry<"blog">[]> {
-  const posts = await getCollection("blog", ({ data }) => !data.draft)
+  const posts = await getCollection("blog", ({ data }) => !data.draft || import.meta.env.DEV)
   return posts
     .filter((post) => (post.data.lang ?? defaultLang) === lang)
     .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())

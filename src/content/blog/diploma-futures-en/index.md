@@ -1,4 +1,6 @@
 ---
+kind: essay
+dossier: "Education and its promises"
 title: You bought a futures contract that settles in four years
 description: The diploma as a credit instrument, and the several guarantors all failing to back it at once — the redeemer, the issuer, the secondary market, and the collateral underneath.
 date: 2026-06-11

@@ -1,5 +1,8 @@
 @media print {
   scroll-progress,
+  .site-header,
+  .skip,
+  .article-actions,
   page-nav,
   page-toc,
   .cite-btn {

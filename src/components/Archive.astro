@@ -1,0 +1,40 @@
+---
+import BlogCard from "@/components/BlogCard.astro"
+import { getPosts } from "@/lib/content"
+import { type Lang } from "@/i18n"
+type Props = { lang: Lang }
+const { lang } = Astro.props
+const posts = [...await getPosts("zh"), ...await getPosts("en")].sort((a,b) => b.data.date.getTime()-a.data.date.getTime())
+const years = [...new Set(posts.map(post => post.data.date.getUTCFullYear()))]
+const topics = [...new Set(posts.map(post => post.data.dossier).filter(Boolean))]
+---
+<h1>{lang === "zh" ? "文章" : "Writing"}</h1>
+<div class="filters">
+  <label>{lang === "zh" ? "搜索" : "Search"}<input type="search" id="archive-search" /></label>
+  <label>{lang === "zh" ? "类型" : "Type"}<select id="archive-kind"><option value="">{lang === "zh" ? "全部" : "All"}</option><option value="essay">{lang === "zh" ? "长文" : "Essay"}</option><option value="signal">{lang === "zh" ? "短札" : "Signal"}</option></select></label>
+  <label>{lang === "zh" ? "年份" : "Year"}<select id="archive-year"><option value="">{lang === "zh" ? "全部" : "All"}</option>{years.map(year => <option value={year}>{year}</option>)}</select></label>
+  <label>{lang === "zh" ? "专题" : "Topic"}<select id="archive-topic"><option value="">{lang === "zh" ? "全部" : "All"}</option>{topics.map(topic => <option value={topic}>{topic}</option>)}</select></label>
+  <label>{lang === "zh" ? "语言" : "Language"}<select id="archive-language"><option value="">{lang === "zh" ? "全部" : "All"}</option><option value="zh" selected={lang === "zh"}>中文</option><option value="en" selected={lang === "en"}>English</option></select></label>
+</div>
+<p id="archive-count" role="status" aria-live="polite"></p>
+<p id="archive-empty" hidden>{lang === "zh" ? "暂无匹配文章。" : "No matching posts."}</p>
+<div id="archive-list">
+  {posts.map(post => <div class="archive-item" data-kind={post.data.kind} data-year={post.data.date.getUTCFullYear()} data-topic={post.data.dossier} data-language={post.data.lang} data-search={[post.data.title, post.data.description, ...(post.data.tags ?? [])].join(" ").toLowerCase()}><ul><BlogCard post={post} lang={post.data.lang} /></ul></div>)}
+</div>
+<script>
+const search=document.querySelector<HTMLInputElement>('#archive-search')
+const kind=document.querySelector<HTMLSelectElement>('#archive-kind')
+const dimensions=['year','topic','language'].map(key=>({key,input:document.querySelector<HTMLSelectElement>(`#archive-${key}`)}))
+function filter(){let visible=0;document.querySelectorAll<HTMLElement>('.archive-item').forEach(item=>{const match=(!kind?.value||item.dataset.kind===kind.value)&&(!search?.value||item.dataset.search?.includes(search.value.toLowerCase().trim()))&&dimensions.every(({key,input})=>!input?.value||item.dataset[key]===input.value);item.hidden=!match;if(match)visible++});const empty=document.querySelector<HTMLElement>('#archive-empty');if(empty)empty.hidden=visible>0;const count=document.querySelector('#archive-count');if(count)count.textContent=document.documentElement.lang.startsWith('zh')?`${visible} 篇文章`:`${visible} ${visible===1?'piece':'pieces'}`}
+search?.addEventListener('input',filter);kind?.addEventListener('change',filter)
+dimensions.forEach(({input})=>input?.addEventListener('change',filter));filter()
+</script>
+<style>
+  h1{font-size:var(--step-3);font-weight:var(--font-weight-medium)}
+  .filters{display:flex;flex-wrap:wrap;gap:var(--space-s);margin-block:var(--space-m)}
+  label{display:flex;align-items:center;gap:var(--space-2xs);font-size:var(--step--1)}
+  input,select{background:var(--background);color:var(--foreground);border:1px solid var(--muted-foreground);border-radius:3px;padding:0.35em;max-width:100%}
+  ul{list-style:none;padding:0;margin:0}.archive-item{margin-block-end:var(--space-l)}
+  [hidden]{display:none}
+  #archive-count{font-family:var(--font-sans);font-size:13px;color:var(--muted-foreground);margin-bottom:30px}
+</style>

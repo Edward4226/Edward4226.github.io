@@ -1,0 +1,7 @@
+---
+import DossierPage from "@/components/DossierPage.astro"
+import { getDossiers } from "@/lib/dossiers"
+export async function getStaticPaths() { return (await getDossiers("en")).map(topic => ({ params: { slug: topic.slug }, props: { topic } })) }
+const { topic } = Astro.props
+---
+<DossierPage topic={topic} lang="en" />

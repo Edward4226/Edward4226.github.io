@@ -1,0 +1,18 @@
+---
+import MetaPage from "@/components/MetaPage.astro"
+import Layout from "@/layouts/Layout.astro"
+import BlogCard from "@/components/BlogCard.astro"
+import type { getDossiers } from "@/lib/dossiers"
+import type { Lang } from "@/i18n"
+type Props = { topic: Awaited<ReturnType<typeof getDossiers>>[number]; lang: Lang }
+const { topic, lang } = Astro.props
+---
+<Layout>
+  <MetaPage slot="head" title={topic.title} description={topic.description} noindex={topic.posts.every(post => post.data.draft)} />
+  <header class="dossier-heading"><p>{lang === "zh" ? "专题" : "Dossier"}</p><h1>{topic.title}</h1><p class="intro">{topic.description}</p></header>
+  <p class="count">{lang === "zh" ? `收录 ${topic.posts.length} 篇文章` : `${topic.posts.length} ${topic.posts.length === 1 ? "piece" : "pieces"}`}</p>
+  <ul>{topic.posts.map(post => <BlogCard post={post} lang={lang} />)}</ul>
+</Layout>
+<style>
+ .dossier-heading{margin-bottom:48px}.dossier-heading>p:first-child,.count{font-family:var(--font-sans);font-size:14px;color:var(--muted-foreground)}h1{font-size:clamp(32px,4vw,46px);font-weight:400;margin-block:18px}.intro{line-height:1.8;color:var(--muted-foreground)}ul{list-style:none;padding:0;display:grid;gap:40px;margin-top:24px}
+</style>

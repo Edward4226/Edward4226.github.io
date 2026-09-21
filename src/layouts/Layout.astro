@@ -18,35 +18,32 @@ import "@/styles/print.css"
 
 import Footer from "@/components/Footer.astro"
 import MetaHead from "@/components/MetaHead.astro"
-import Sidebar from "@/components/Sidebar.astro"
+import SiteHeader from "@/components/SiteHeader.astro"
 import { SITE } from "@/consts"
 import { getLang, ui } from "@/i18n"
 
-type Props = { crumbs?: { label: string; href: string }[] }
+type Props = { crumbs?: { label: string; href: string }[]; wide?: boolean }
 
-const { crumbs } = Astro.props
+const { wide = false } = Astro.props
 const lang = getLang(Astro.url)
 ---
 
-<html lang={ui[lang].locale} dir={SITE.dir}>
+<html lang={ui[lang].locale} dir={SITE.dir} data-theme="dark">
   <MetaHead>
     <slot name="head" />
   </MetaHead>
   <body>
     <scroll-progress aria-hidden="true"></scroll-progress>
-    <page-grid>
+    <SiteHeader />
+    <page-grid class:list={{ wide }}>
       <page-header>
-        <page-nav>
-          <Sidebar crumbs={crumbs}
-            ><slot name="actions" slot="actions" /></Sidebar
-          >
-        </page-nav>
         {Astro.slots.has("toc") && (
             <page-toc><slot name="toc" /></page-toc>
           )}
       </page-header>
       <page-content>
-        <main><slot /></main>
+        <main id="main"><slot /></main>
+        {Astro.slots.has("actions") && <nav class="article-actions" aria-label={lang === "zh" ? "相邻文章" : "Adjacent posts"}><slot name="actions" /></nav>}
         <page-footer><Footer /></page-footer>
       </page-content>
     </page-grid>
@@ -81,7 +78,7 @@ const lang = getLang(Astro.url)
     position: relative;
     isolation: isolate;
     display: grid;
-    grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr) minmax(0, 690px) minmax(0, 1fr);
     gap: var(--grid-gutter);
     max-width: var(--grid-max-width);
     min-height: 100svh;
@@ -127,21 +124,21 @@ const lang = getLang(Astro.url)
   page-toc {
     display: block;
     min-width: 0;
-    grid-column: 10 / 13;
+    grid-column: 3;
     grid-row: 1;
 
     @media screen and (width >= 64rem) {
-      position: fixed;
-      inset-block: var(--page-offset-top) var(--page-offset-bottom);
-      inset-inline-end: var(--grid-edge);
-      width: calc(3 * var(--grid-column-width) + 2 * var(--grid-gutter));
+      position: sticky;
+      top: 32px;
+      align-self: start;
+      max-height: calc(100vh - 64px);
     }
   }
 
   page-content {
     display: flex;
     flex-direction: column;
-    grid-column: 3 / 10;
+    grid-column: 2;
     grid-row: 1;
     min-width: 0;
     margin-block-start: -0.1em;
@@ -162,5 +159,17 @@ const lang = getLang(Astro.url)
       max-inline-size: var(--measure);
       margin-inline: auto;
     }
+  }
+
+  page-grid.wide { grid-template-columns: 1fr; max-width: 1280px; padding-inline: 36px; }
+  page-grid.wide page-content { grid-column: 1; max-inline-size: none; }
+  page-grid.wide page-header { display: none; }
+  .article-actions { display:flex; gap:12px; border-top:1px solid var(--border); padding-top:20px; margin-top:40px; }
+  @media(width < 64rem) {
+    page-grid { padding-block-start: 36px; }
+    page-header { position:static; }
+    page-toc { margin-bottom:24px; }
+    page-grid.wide {padding-inline:20px;}
+    .article-actions {display:none;}
   }
 </style>

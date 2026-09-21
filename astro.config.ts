@@ -12,6 +12,8 @@ import { externalLinks } from "./src/lib/external-links"
 import { headingNamespace } from "./src/lib/heading-namespace"
 
 export default defineConfig({
+  // Preserve the existing inline spacing when upgrading from Astro 6.
+  compressHTML: true,
   site: "https://edward4226.github.io",
   prefetch: { prefetchAll: true },
   i18n: {

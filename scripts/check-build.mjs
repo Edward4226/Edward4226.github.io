@@ -17,6 +17,12 @@ for(const [file,body] of contents){
   }
 }
 const contentFiles=(await walk(path.join(root,'src/content/blog'))).filter(p=>p.endsWith('.md')),slugs=new Set()
+// Guard the actual Astro pipeline as well as the parser unit checks: an older
+// Markdown adapter used different offsets and could pass isolated tests while
+// corrupting this published paragraph during the full build.
+const colonRegression='判断:技术进步的方向,是让生产越来越不需要人。'
+const originalEssay=await readFile(path.join(root,'src/content/blog/diploma-futures-zh/index.md'),'utf8')
+if(originalEssay.includes(colonRegression)&&![...contents.values()].some(body=>body.includes(colonRegression)))failures.push('正文冒号后的文字在Astro构建中丢失或被替换')
 for(const p of contentFiles){const body=await readFile(p,'utf8'),fm=body.split('---')[1]??'',slug=fm.match(/^urlSlug:\s*["']?([^\s"']+)/m)?.[1],lang=fm.match(/^lang:\s*["']?(zh|en)/m)?.[1];if(!slug||!lang){failures.push(`${p}缺少永久slug或语言`);continue}if(slugs.has(`${lang}/${slug}`))failures.push(`重复文章路径：${lang}/${slug}`);slugs.add(`${lang}/${slug}`)
   if(/^draft:\s*true\s*$/m.test(fm)){for(const file of files.filter(p=>/\.(html|md|xml|txt|json)$/.test(p))){if((await readFile(file,'utf8')).includes(slug)||file.includes(slug))failures.push(`草稿出现在正式产物：${path.relative(dist,file)}`)}}
 }

@@ -10,6 +10,7 @@ import { calloutDirective } from "./src/lib/callout"
 import { wideDirective } from "./src/lib/wide"
 import { externalLinks } from "./src/lib/external-links"
 import { headingNamespace } from "./src/lib/heading-namespace"
+import { literalInlineDirectives } from "./src/lib/literal-inline-directives.mjs"
 
 export default defineConfig({
   // Preserve the existing inline spacing when upgrading from Astro 6.
@@ -26,7 +27,7 @@ export default defineConfig({
     syntaxHighlight: false,
     processor: satteri({
       features: { directive: true, math: true },
-      mdastPlugins: [calloutDirective, wideDirective, inlineExpressiveCode, temmlMath],
+      mdastPlugins: [literalInlineDirectives, calloutDirective, wideDirective, inlineExpressiveCode, temmlMath],
       hastPlugins: [externalLinks, blockExpressiveCode, headingNamespace],
     }),
   },
